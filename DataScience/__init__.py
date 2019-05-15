@@ -1,2 +1,2 @@
-name = "Minus1By12-DataScience"
+name = "Minus1By12DataScience"
 from DataScience.MachineLearning import Preprocessing, FeatureSelection
