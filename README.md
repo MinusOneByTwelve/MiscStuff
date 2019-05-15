@@ -1,9 +1,6 @@
-******************************
 # MinusOneByTwelve Solutions LLP
-******************************
 
-****************
-APPLIED INFINITY
-****************
+## APPLIED INFINITY
+
 
 BigData, CoreML & DeepLearning Assistance Library
