@@ -1,3 +1,15 @@
+import DataScience.MachineLearning as ai
+FeatureSelection = ai.Preprocessing()
+df1 = FeatureSelection.LoadData("Sample2.csv")
+df2 = FeatureSelection.LoadData("Sample.tsv",HeaderMissing="Yes")
+df3 = FeatureSelection.LoadData("Sample.xls")
+df4 = FeatureSelection.LoadData("Sample.xlsx")
+df5 = FeatureSelection.LoadData("Sample2.json")
+df6 = FeatureSelection.LoadData("Sample1.xml")
+df7 = FeatureSelection.LoadData("SampleORC.orc")
+df8 = FeatureSelection.LoadData("SampleParquet.parquet")
+df9 = FeatureSelection.LoadData("SampleAvro.avro")
+
 import json 
 import pandas as pd 
 from flatten_json import flatten
