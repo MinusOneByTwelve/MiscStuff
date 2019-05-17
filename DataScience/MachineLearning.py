@@ -4,7 +4,114 @@ class Preprocessing:
 #Assumption 2 - Ordinal & Bit Switches Will Not Be Pushed In Nominal Function    
 #Assumption 3 - Train Categorical Will Be SuperSet & Test Will Be SubSet, Else Model To Be ReCreated
 
-
+   def LoadData(self, FileName, HeaderMissing="No"):
+    # Supports excel,csv,tsv,xml,json,orc,parquet,avro
+    import pandas as pd
+    FileType = FileName.split(".")
+    FileType = FileType[len(FileType)-1].lower()
+    if FileType == 'xls':
+        if HeaderMissing =="Yes":
+            return pd.read_excel(FileName, header=None) 
+        else:
+            return pd.read_excel(FileName)
+    if FileType == 'xlsx':
+        if HeaderMissing =="Yes":
+            return pd.read_excel(FileName, header=None) 
+        else:
+            return pd.read_excel(FileName)   
+    if FileType == 'csv':
+        if HeaderMissing =="Yes":
+            return pd.read_csv(FileName, header=None) 
+        else:
+            return pd.read_csv(FileName)
+    if FileType == 'tsv':
+        if HeaderMissing =="Yes":
+            return pd.read_csv(FileName, header=None, sep='\t') 
+        else:
+            return pd.read_csv(FileName, sep='\t')    
+    if FileType == 'orc':
+        import pyarrow.orc as orc
+        return orc.ORCFile(FileName).read().to_pandas()
+    if FileType == 'parquet':
+        import pyarrow.parquet as parquet
+        return parquet.ParquetFile(FileName).read().to_pandas() 
+    if FileType == 'avro':
+        import pandavro as pdx
+        return pdx.read_avro(FileName)    
+    if FileType == 'json':
+        import json 
+        from flatten_json import flatten
+        from pandas.io.json import json_normalize
+        with open(FileName) as RequiredFile:
+            json = json.load(RequiredFile)
+        if isinstance(json, dict): 
+            if(len(json) > 1):
+                DataFrame = json_normalize(flatten(json))
+            else:
+                DataFrame = json_normalize(list(json.values())[0]) 
+        else:
+            FlattenedData = (flatten(_json) for _json in json)
+            DataFrame = pd.DataFrame(FlattenedData)
+        return DataFrame  
+    if FileType == 'xml':
+        import xml.etree.ElementTree as et
+        RootElement = et.parse(FileName).getroot()
+        RootElementTag = RootElement.tag
+        RootElementAttributes = []
+        
+        for Item in RootElement.keys():
+            if "__"+RootElementTag+"___"+Item not in RootElementAttributes :
+                RootElementAttributes.append("__"+RootElementTag+"___"+Item)
+               
+        CoreElement = []
+        CoreElementAttributes = []
+        CoreNodes = []
+        CoreNodesAttributes = []
+        FinalColumns = []
+        
+        for CE in RootElement: 
+            if CE.tag not in CoreElement :
+                CoreElement.append(CE.tag) 
+            for Item in CE.keys():
+                if CE.tag+"___"+Item not in CoreElementAttributes :
+                    CoreElementAttributes.append(CE.tag+"___"+Item)
+            for Item in list(CE):
+                if CE.tag+"__"+Item.tag not in CoreNodes :
+                    CoreNodes.append(CE.tag+"__"+Item.tag)   
+                for Item_ in Item.keys():
+                    if CE.tag+"__"+Item.tag+"___"+Item_ not in CoreNodesAttributes :
+                        CoreNodesAttributes.append(CE.tag+"__"+Item.tag+"___"+Item_)
+        
+        RootElementAttributes = sorted(RootElementAttributes) 
+        CoreElement = sorted(CoreElement) 
+        CoreElementAttributes = sorted(CoreElementAttributes) 
+        CoreNodes = sorted(CoreNodes) 
+        CoreNodesAttributes = sorted(CoreNodesAttributes) 
+        FinalColumns = FinalColumns+RootElementAttributes+CoreElementAttributes+CoreNodes+CoreNodesAttributes
+        FinalColumns = sorted(FinalColumns) 
+        DataFrame = pd.DataFrame(columns = FinalColumns)
+        
+        for CE in RootElement: 
+            DataRow = []
+            for Item in RootElementAttributes:
+                DataRow.append(RootElement.attrib.get(Item.split("___")[1]))
+            for Item in CoreElementAttributes:
+                DataRow.append(CE.attrib.get(Item.split("___")[1]))        
+            for Item in CoreNodes:
+                if CE is not None and CE.find(Item.split("__")[1]) is not None:
+                    DataRow.append(CE.find(Item.split("__")[1]).text)
+                else: 
+                    DataRow.append(None)     
+                CoreNodesAttributesFiltered = [Value for Value in CoreNodesAttributes if Value.split("___")[0] == Item]
+                for CNAF in CoreNodesAttributesFiltered:
+                    DataRow.append(CE.find(Item.split("__")[1]).attrib.get(CNAF.split("___")[1]))
+                    #print(CE.find(Item.split("__")[1]).attrib)
+                    #print("**********")
+                #print(CoreNodesAttributesFiltered)
+                #print("----------------")
+            #print(DataRow)   
+            DataFrame = DataFrame.append(pd.Series(DataRow, index = FinalColumns), ignore_index = True)    
+        return DataFrame
     
    def HandleCategorical_(self, DataObject):       
     from sklearn.preprocessing import LabelEncoder    

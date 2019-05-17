@@ -5,14 +5,14 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="Minus1By12",
-    version="1.0.3",
+    version="1.0.4",
     author="MinusOneByTwelve Solutions LLP",
     author_email="Contact@Minus1By12.com",
     description="BigData, CoreML & DeepLearning Assistance Library",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/MinusOneByTwelve/Minus1By12",
-    download_url = "https://github.com/MinusOneByTwelve/Minus1By12/archive/1.0.3.tar.gz",
+    download_url = "https://github.com/MinusOneByTwelve/Minus1By12/archive/1.0.4.tar.gz",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",

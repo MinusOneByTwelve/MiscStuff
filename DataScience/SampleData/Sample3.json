@@ -1,0 +1,14 @@
+{
+"Employees" : [
+{
+"empId":"10001",
+"phoneNumber":"408-1234567",
+"emailAddress":"geo.face@gmail.com"
+},
+{
+"empId":"10002",
+"phoneNumber":"454-7767788",
+"emailAddress":"bez.sim@gmail.com"
+}
+]
+}
