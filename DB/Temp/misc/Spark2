@@ -1,0 +1,279 @@
+==============================================================================
+https://medium.com/ymedialabs-innovation/apache-spark-on-a-multi-node-cluster-b75967c8cb2b
+https://computingforgeeks.com/how-to-install-elk-stack-on-centos-fedora/
+https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elastic-stack-on-centos-7
+==============================================================================
+sudo yum groupinstall "Development Tools" -y
+sudo yum install openssl-devel libffi-devel bzip2-devel -y
+wget https://cdn.azul.com/zulu/bin/zulu8.68.0.19-ca-jdk8.0.362-linux.x86_64.rpm
+wget https://downloads.lightbend.com/scala/2.12.14/scala-2.12.14.rpm
+wget https://archive.apache.org/dist/spark/spark-3.3.0/spark-3.3.0-bin-hadoop3-scala2.13.tgz
+wget https://www.python.org/ftp/python/3.9.5/Python-3.9.5.tar.xz
+sudo yum install -y zulu8.68.0.19-ca-jdk8.0.362-linux.x86_64.rpm
+sudo yum install -y scala-2.12.14.rpm
+java -version
+scala -version
+ls
+tar xf Python-3.9.5.tar.xz 
+cd Python-3.9.5
+./configure --enable-optimizations
+sudo make altinstall
+python3.9 --version
+pip3.9 --version
+/usr/local/bin/python3.9 -m pip install --upgrade pip
+pip3.9 --version
+cd ~
+clear
+java -version
+scala -version
+python3.9 --version
+pip3.9 --version
+sudo ln -s /usr/local/bin/python3.9 /usr/bin/python3
+ls
+sudo rm -rf Python-3.9.5         
+sudo rm -rf Python-3.9.5.tar.xz  
+sudo rm -rf zulu8.68.0.19-ca-jdk8.0.362-linux.x86_64.rpm
+sudo rm -rf scala-2.12.14.rpm
+ls
+//ONLY ON MASTER ssh-keygen -t rsa -P ""
+sudo mkdir /tmp/spark-events && sudo chmod -R 777 /tmp/spark-events
+tar xf spark-3.3.0-bin-hadoop3-scala2.13.tgz
+ls
+sudo mv spark-3.3.0-bin-hadoop3-scala2.13 /opt/spark && sudo chmod -R 777 /opt/spark && ls -l /opt && rm -f spark-3.3.0-bin-hadoop3-scala2.13.tgz && ls
+echo 'export PATH=$PATH:/opt/spark/bin' >> ~/.bashrc
+cat ~/.bashrc
+source ~/.bashrc
+//ONLY ON MASTER cd /opt/spark/conf && sudo cp spark-env.sh.template spark-env.sh && sudo nano spark-env.sh 
+cd ~
+sudo chmod -R 777 /opt/spark
+cd /opt/spark && ./sbin/start-all.sh && cd ~
+cd /opt/spark && ./sbin/start-history-server.sh && cd ~
+http://masternode:8080/
+http://masternode:18080/
+spark-shell --master spark://masternode:7077
+cd /opt/spark && ./sbin/stop-all.sh && cd ~
+cd /opt/spark && ./sbin/stop-history-server.sh && cd ~
+
+wget https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.6.0-x86_64.rpm
+sudo yum install -y filebeat-8.6.0-x86_64.rpm
+rm -f filebeat-8.6.0-x86_64.rpm && ls
+
+sudo touch /tmp/Retail_LearnSpark.log && sudo chmod 777 /tmp/Retail_LearnSpark.log
+echo 'spark1' >> /tmp/Retail_LearnSpark.log
+sudo chown root:root /etc/filebeat/filebeat.yml && sudo systemctl restart filebeat && sudo systemctl status filebeat && sudo filebeat setup -e
+==============================================================================
+https://docs.databricks.com/dbfs/filestore.html
+https://learn.microsoft.com/en-gb/azure/databricks/
+https://learn.microsoft.com/en-gb/azure/databricks/release-notes/runtime/11.3
+udf pyspark performance
+https://sparkbyexamples.com/pyspark/pandas-api-on-apache-spark-pyspark/
+https://towardsdatascience.com/run-pandas-as-fast-as-spark-f5eefe780c45
+https://medium.com/quantumblack/spark-udf-deep-insights-in-performance-f0a95a4d8c62
+https://stackoverflow.com/questions/38296609/spark-functions-vs-udf-performance
+https://medium.com/wbaa/using-scala-udfs-in-pyspark-b70033dd69b9
+pyspark logger log4j
+https://docs.databricks.com/clusters/cluster-config-best-practices.html
+https://github.com/spark-examples
+https://learn.microsoft.com/en-gb/azure/databricks/workflows/
+----------------
+https://medium.com/@alexandergao/core-pyspark-performing-an-inner-join-on-an-rdd-b8bac25c7ccb
+http://apachesparkbook.blogspot.com/2015/12/mapvalues-example.html
+https://dkbalachandar.wordpress.com/2018/12/31/spark-cogroup/
+https://devopsrecipe.wordpress.com/2016/10/17/pyspark-aggregatebykey/
+https://stackoverflow.com/questions/24804619/how-does-spark-aggregate-function-aggregatebykey-work
+https://sparkbyexamples.com/pyspark/pyspark-rdd-actions/
+https://stackoverflow.com/questions/54662968/how-to-countbyvalue-in-pyspark-with-duplicate-key
+https://linuxhint.com/pyspark-rdd-lookup-collectasmap/
+https://ragrawal.wordpress.com/2015/07/26/pyspark-takeordered-on-multiple-fields/
+==============================================================================
+Multifaceted deployAgnostic Timesaving Scalable analYtics Amalgamated PLATFORM
+==============================================================================
+
+K8s MULTINODE
+
+-----------------------
+TERMINALS AVAILABLE
+-----------------------
+(1) TrainerMachine (192.168.0.106)
+(2) bfs-sprk-216-48-182-106-e2e7-114003-ncr.cluster (216.48.182.106)
+(3) bfs-sprk-216-48-182-124-e2e7-114004-ncr.cluster (216.48.182.124)
+(4) bfs-sprk-216-48-182-131-e2e7-114005-ncr.cluster (216.48.182.131)
+(5) bfs-sprk-216-48-182-132-e2e7-114006-ncr.cluster (216.48.182.132)
+(6) bfs-sprk-216-48-182-133-e2e7-114007-ncr.cluster (216.48.182.133)
+-----------------------
+
+-----------------------
+ACCESS INFO
+-----------------------
+FELLOWSHIP => bfs-sprk
+LGDf5HUVC4oNujB => Cwru3JT33RG2iM9
+E2E (matsya) => QsisQF8NMFMOWO4
+-----------------------
+* /opt/Matsya/matsya-mn-bfs-sprk-terminal.pem
+* /opt/Matsya/matsya-mn-bfs-sprk-terminal.ppk
+-----------------------
+* PASSWORD LOGIN     => sshpass -p "Cwru3JT33RG2iM9" ssh -p PORT -o "StrictHostKeyChecking=no" LGDf5HUVC4oNujB@TERMINAL
+-----
+* FILE PUSH          => /opt/Matsya/matsya-mn-bfs-sprk-push.sh
+-----
+* EXECUTE            => /opt/Matsya/matsya-mn-bfs-sprk-exec.sh
+-----
+* CONNECT TERMINAL   => /opt/Matsya/matsya-mn-bfs-sprk-connect.sh
+-----
+* ADD TERMINAL       => /opt/Matsya/matsya-mn-bfs-sprk-add.sh
+-----
+* REMOVE TERMINAL    => /opt/Matsya/matsya-mn-bfs-sprk-remove.sh
+-----
+* SYNC TERMINAL      => /opt/Matsya/matsya-mn-bfs-sprk-sync.sh
+-----
+* DISBAND FELLOWSHIP => /opt/Matsya/matsya-mn-bfs-sprk-kill.sh
+-----------------------
+
+Total Time Taken => 13 Minutes
+
+sshpass -p 'Cwru3JT33RG2iM9' ssh -o StrictHostKeyChecking=no LGDf5HUVC4oNujB@216.48.182.132
+sshpass -p '1SMnVw6plQi2VFU' ssh -o StrictHostKeyChecking=no mO9zv9KJL8ejheh@216.48.181.60
+==============================================================================
+http://training-216-48-181-56-e2e7-113488-ncr.cluster:5601 elastic 8d23XjnVlCEIcttEvsUT
+https://adb-8202987892709514.14.azuredatabricks.net/
+https://adb-8202987892709514.14.azuredatabricks.net/files
+https://portal.azure.com/
+==============================================================================
+spark-submit --conf spark.history.fs.logDirectory=/tmp/spark-events --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=/tmp/spark-events --master spark://masternode:7077 --num-executors 3 --driver-memory 512m --executor-memory 512m --executor-cores 1 --total-executor-cores 4 movielens.py
+
+spark-submit --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=/tmp/spark-events \
+--conf "spark.executor.extraJavaOptions=-Dlog4j.configuration=/opt/Matsya/MN/bfs-sprk/LGDf5HUVC4oNujB/log4j.properties" \
+--conf spark.history.fs.logDirectory=/tmp/spark-events --class "Retail.LearnSpark.Spark_Straggler" \
+--master spark://masternode:7077 --num-executors 4 --driver-memory 512m \
+--executor-memory 512m --executor-cores 1 --total-executor-cores 4 Spark_Straggler.jar \
+/opt/Matsya/MN/bfs-sprk/LGDf5HUVC4oNujB/log4j.properties /opt/DataSet/MakeMyTrip.csv 8 4 MMT_Analyze_Dev_Rotation_3
+
+spark-submit --driver-java-options "-Dlog4j.configuration=file:/tmp/driver_log4j.properties"
+--class org.apache.spark.examples.JavaSparkPi --master yarn-client --num-executors 3
+--driver-memory 512m --executor-memory 512m --executor-cores 1 spark-examples*.jar 10
+
+spark2-submit \
+--class com.demo.Main \
+--master yarn --deploy-mode client \
+--driver-memory 10G --driver-cores 8 --executor-memory 13G --executor-cores 4 \
+--num-executors 10 \
+--verbose \
+--conf "spark.driver.extraJavaOptions=-Dconfig.file=/$HOME/application.conf -Dlog4j.configuration=$HOME/log4j.properties" \
+--conf "spark.executor.extraJavaOptions=-Dconfig.file=$HOME/application.conf -Dlog4j.configuration=$HOME/log4j.properties" \
+--files "application.conf,log4j.properties" \
+$HOME/ingestion-1.0-SNAPSHOT-jar-with-dependencies.jar
+
+
+spark-submit --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=/tmp/spark-events \
+--conf "spark.driver.extraJavaOptions=-Dlog4j.configuration=/opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/dlog4j.properties" \
+--conf "spark.executor.extraJavaOptions=-Dlog4j.configuration=/opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/dlog4j.properties" \
+--conf spark.history.fs.logDirectory=/tmp/spark-events --class "Retail.LearnSpark.Spark_FilterEmps" --master spark://learnspark-216-48-183-151-e2e7-101132-ncr.cluster:7077 \
+--num-executors 8 --driver-memory 512m --executor-memory 512m --executor-cores 1 \
+--total-executor-cores 8 Spark_FilterEmps.jar \
+/opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/log4j.properties \
+/opt/DataSet/EmployeesAll.csv 8 1 /opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/res5 Sprint46-Story59
+
+
+spark-submit --driver-java-options "-Dlog4j.configuration=/opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/log4j.properties" --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=/tmp/spark-events \
+--conf spark.history.fs.logDirectory=/tmp/spark-events --class "Retail.LearnSpark.Spark_FilterEmps" --master spark://learnspark-216-48-183-151-e2e7-101132-ncr.cluster:7077 \
+--num-executors 8 --driver-memory 512m --executor-memory 512m --executor-cores 1 \
+--total-executor-cores 8 Spark_FilterEmps.jar \
+/opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/log4j.properties \
+/opt/DataSet/EmployeesAll.csv 8 1 /opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/res5 Sprint46-Story59
+
+
+spark-submit --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=/tmp/spark-events \
+--conf "spark.executor.extraJavaOptions=-Dlog4j.configuration=/opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/log4j.properties" \
+--conf spark.history.fs.logDirectory=/tmp/spark-events --class "Retail.LearnSpark.Spark_FilterEmps" --master spark://learnspark-216-48-183-151-e2e7-101132-ncr.cluster:7077 \
+--num-executors 8 --driver-memory 512m --executor-memory 512m --executor-cores 1 \
+--total-executor-cores 8 Spark_FilterEmps.jar \
+/opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/log4j.properties \
+/opt/DataSet/EmployeesAll.csv 8 1 /opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/res5 Sprint47-Story60
+
+/opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/http_ca.crt
+
+
+spark-submit --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=/tmp/spark-events \
+--conf "spark.executor.extraJavaOptions=-Dlog4j.configuration=/opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/log4j.properties" \
+--conf spark.history.fs.logDirectory=/tmp/spark-events --class "Retail.LearnSpark.Spark_FilterEmps" \
+--master spark://learnspark-216-48-183-151-e2e7-101132-ncr.cluster:7077 --num-executors 8 --driver-memory 512m \
+--executor-memory 512m --executor-cores 1 --total-executor-cores 8 Spark_FilterEmps.jar \
+/opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/log4j.properties /opt/DataSet/EmployeesAll.csv 8 1 \
+/opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/res5 Sprint47-Story70
+
+curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.3.3-x86_64.rpm
+wget https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.6.0-x86_64.rpm
+sudo rpm -vi filebeat-8.3.3-x86_64.rpm
+  181  ls
+  182  sudo find / -name filebeat.yml
+  183  sudo nano /etc/filebeat/filebeat.yml 
+  184  sudo service filebeat start
+  185  sudo systemctl status filebeat
+  186  sudo systemctl status filebeat -l
+  187  filebeat modules enable logstash
+  188  sudo filebeat modules enable logstash
+  189  sudo filebeat setup
+  190  sudo systemctl status filebeat
+  191  sudo nano /etc/filebeat/filebeat.yml 
+sudo systemctl restart filebeat
+sudo systemctl status filebeat -l
+  194  sudo filebeat setup
+  195  sudo nano /etc/filebeat/filebeat.yml 
+  196  sudo systemctl restart filebeat
+  197  sudo systemctl status filebeat
+  198  sudo filebeat setup
+  199  sudo nano /etc/filebeat/filebeat.yml 
+  200  sudo systemctl restart filebeat
+  201  sudo systemctl status filebeat
+  202  sudo filebeat setup
+  203  ls
+  204  pwd
+  205  sudo nano /etc/filebeat/filebeat.yml 
+  206  sudo systemctl restart filebeat
+  207  sudo systemctl status filebeat
+  208  sudo filebeat setup
+  209  sudo nano /etc/filebeat/filebeat.yml 
+  210  sudo systemctl restart filebeat
+  211  sudo systemctl status filebeat
+  212  sudo filebeat setup
+  213  sudo systemctl status filebeat -l
+  214  cat /tmp/Retail_LearnSpark.log | grep Story67
+  215  sudo systemctl status filebeat -l
+  216  sudo nano /etc/filebeat/filebeat.yml 
+  217  sudo filebeat setup -e
+  218  sudo find / -name logstash*
+  219  sudo nano /etc/filebeat/modules.d/logstash.yml
+  220  sudo filebeat setup -e
+  221  cat /tmp/Retail_LearnSpark.log | grep Story70
+  222  history
+[WHJGTTnVP9291fB@learnspark-216-48-184-64-e2e7-101134-ncr ~]$ 
+
+/opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/http_ca.crt
+
+
+spark-submit --master yarn-client  --driver-memory 5G --executor-memory 6G --num-executors 1 --executor-cores 1 \
+--jars jars/myapp-common-1.1.0.jar,jars/myapp-shared-1.1.1.jar   \
+--conf spark.executor.extraJavaOptions="-Dconfig.resource=myapp.conf" 
+--conf spark.driver.extraJavaOptions="-Dconfig.resource=myapp.conf -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=7777" \
+--classcom.myapp.SparkSimpleJob \
+--files conf/myapp.conf  jars/myapp-spark-1.0.0.jar /some/input/path
+
+
+spark-submit --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=/tmp/spark-events \
+--conf "spark.executor.extraJavaOptions=-Dlog4j.configuration=/opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/log4j.properties" \
+--conf spark.driver.extraJavaOptions="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=7778" \
+--conf spark.history.fs.logDirectory=/tmp/spark-events --class "Retail.LearnSpark.Spark_FilterEmps" \
+--master spark://learnspark-216-48-183-151-e2e7-101132-ncr.cluster:7077 --num-executors 1 --driver-memory 512m \
+--executor-memory 512m --executor-cores 1 --total-executor-cores 1 Spark_FilterEmps.jar \
+/opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/log4j.properties /opt/DataSet/EmployeesAll.csv 1 1 \
+/opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/res5 Sprint75-Story9090
+
+spark-submit --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=/tmp/spark-events --conf "spark.executor.extraJavaOptions=-Dlog4j.configuration=/opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/log4j.properties" --conf spark.driver.extraJavaOptions="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=7777" --conf spark.history.fs.logDirectory=/tmp/spark-events --class "Retail.LearnSpark.Spark_FilterEmps" --master spark://learnspark-216-48-183-151-e2e7-101132-ncr.cluster:7077 --num-executors 1 --driver-memory 512m --executor-memory 512m --executor-cores 1 --total-executor-cores 1 Spark_FilterEmps.jar /opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/log4j.properties /opt/DataSet/EmployeesAll.csv 1 1 /opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/res5 Sprint75-Story76
+
+spark-submit --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=/tmp/spark-events \
+--conf "spark.executor.extraJavaOptions=-Dlog4j.configuration=/opt/Matsya/MN/bfs-sprk/LGDf5HUVC4oNujB/log4j.properties" \
+--conf spark.history.fs.logDirectory=/tmp/spark-events --class "Retail.LearnSpark.Spark_FilterEmps" \
+--master spark://masternode:7077 --num-executors 8 --driver-memory 512m \
+--executor-memory 512m --executor-cores 1 --total-executor-cores 8 Spark_FilterEmps.jar \
+/opt/Matsya/MN/bfs-sprk/LGDf5HUVC4oNujB/log4j.properties /opt/DataSet/EmployeesAll.csv 8 1 \
+/opt/Matsya/MN/bfs-sprk/LGDf5HUVC4oNujB/res5 Sprint75-Story75

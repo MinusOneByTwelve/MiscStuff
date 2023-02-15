@@ -1,0 +1,183 @@
+{
+    "name": "MultiTaskDBJob",
+    "email_notifications": {
+        "no_alert_for_skipped_runs": false
+    },
+    "webhook_notifications": {},
+    "timeout_seconds": 0,
+    "max_concurrent_runs": 1,
+    "tasks": [
+        {
+            "task_key": "CleanUp",
+            "spark_python_task": {
+                "python_file": "dbfs:/FileStore/tables/MultiTaskFiles/MultiTaskSqlJob.py",
+                "parameters": [
+                    "MultiTaskDBJob",
+                    "A",
+                    "/FileStore/MultiTaskJob"
+                ]
+            },
+            "existing_cluster_id": "0126-092350-yeat5lop",
+            "timeout_seconds": 0,
+            "email_notifications": {}
+        },
+        {
+            "task_key": "CheckFiles",
+            "depends_on": [
+                {
+                    "task_key": "XML"
+                },
+                {
+                    "task_key": "CSV"
+                },
+                {
+                    "task_key": "JSON"
+                },
+                {
+                    "task_key": "MYSQL"
+                }
+            ],
+            "spark_python_task": {
+                "python_file": "dbfs:/FileStore/tables/MultiTaskFiles/MultiTaskSqlJob.py",
+                "parameters": [
+                    "MultiTaskDBJob",
+                    "C",
+                    "/FileStore/MultiTaskJob",
+                    "/FileStore/MultiTaskJob/XML",
+                    "/FileStore/MultiTaskJob/JSON",
+                    "/FileStore/MultiTaskJob/CSV",
+                    "/FileStore/MultiTaskJob/MYSQL"
+                ]
+            },
+            "existing_cluster_id": "0126-092350-yeat5lop",
+            "timeout_seconds": 0,
+            "email_notifications": {}
+        },
+        {
+            "task_key": "DoRealWork",
+            "depends_on": [
+                {
+                    "task_key": "CheckFiles"
+                }
+            ],
+            "spark_python_task": {
+                "python_file": "dbfs:/FileStore/tables/MultiTaskFiles/MultiTaskSqlJob.py",
+                "parameters": [
+                    "MultiTaskDBJob",
+                    "D",
+                    "/FileStore/MultiTaskJob/FinalResult",
+                    "/FileStore/MultiTaskJob/XML",
+                    "/FileStore/MultiTaskJob/JSON",
+                    "/FileStore/MultiTaskJob/CSV",
+                    "/FileStore/MultiTaskJob/MYSQL"
+                ]
+            },
+            "existing_cluster_id": "0126-092350-yeat5lop",
+            "libraries": [
+                {
+                    "jar": "dbfs:/FileStore/jars/912c69ce_999b_4beb_b805_788646b0684f-PerfBonus.jar"
+                }
+            ],
+            "timeout_seconds": 0,
+            "email_notifications": {}
+        },
+        {
+            "task_key": "XML",
+            "depends_on": [
+                {
+                    "task_key": "CleanUp"
+                }
+            ],
+            "spark_python_task": {
+                "python_file": "dbfs:/FileStore/tables/MultiTaskFiles/MultiTaskSqlJob.py",
+                "parameters": [
+                    "MultiTaskDBJob",
+                    "B1",
+                    "/FileStore/tables/MultiTaskData/employees.xml",
+                    "Employee",
+                    "/FileStore/MultiTaskJob/XML"
+                ]
+            },
+            "existing_cluster_id": "0126-092350-yeat5lop",
+            "libraries": [
+                {
+                    "maven": {
+                        "coordinates": "com.databricks:spark-xml_2.12:0.16.0"
+                    }
+                }
+            ],
+            "timeout_seconds": 0,
+            "email_notifications": {}
+        },
+        {
+            "task_key": "CSV",
+            "depends_on": [
+                {
+                    "task_key": "CleanUp"
+                }
+            ],
+            "spark_python_task": {
+                "python_file": "dbfs:/FileStore/tables/MultiTaskFiles/MultiTaskSqlJob.py",
+                "parameters": [
+                    "MultiTaskDBJob",
+                    "B2",
+                    "/FileStore/tables/MultiTaskData/employees.csv",
+                    "/FileStore/MultiTaskJob/CSV"
+                ]
+            },
+            "existing_cluster_id": "0126-092350-yeat5lop",
+            "timeout_seconds": 0,
+            "email_notifications": {}
+        },
+        {
+            "task_key": "JSON",
+            "depends_on": [
+                {
+                    "task_key": "CleanUp"
+                }
+            ],
+            "spark_python_task": {
+                "python_file": "dbfs:/FileStore/tables/MultiTaskFiles/MultiTaskSqlJob.py",
+                "parameters": [
+                    "MultiTaskDBJob",
+                    "B3",
+                    "/FileStore/tables/MultiTaskData/employees.json",
+                    "/FileStore/MultiTaskJob/JSON"
+                ]
+            },
+            "existing_cluster_id": "0126-092350-yeat5lop",
+            "timeout_seconds": 0,
+            "email_notifications": {}
+        },
+        {
+            "task_key": "MYSQL",
+            "depends_on": [
+                {
+                    "task_key": "CleanUp"
+                }
+            ],
+            "spark_python_task": {
+                "python_file": "dbfs:/FileStore/tables/MultiTaskFiles/MultiTaskSqlJob.py",
+                "parameters": [
+                    "MultiTaskDBJob",
+                    "B4",
+                    "/FileStore/MultiTaskJob/MYSQL",
+                    "216.48.181.38",
+                    "retail_db",
+                    "employeesql",
+                    "mysqluser",
+                    "mysqluser123"
+                ]
+            },
+            "existing_cluster_id": "0126-092350-yeat5lop",
+            "libraries": [
+                {
+                    "jar": "dbfs:/FileStore/jars/6496a01b_6c32_4222_8794_d5b0c7472ef9-mysql_connector_java_5_1_49-93fdd.jar"
+                }
+            ],
+            "timeout_seconds": 0,
+            "email_notifications": {}
+        }
+    ],
+    "format": "MULTI_TASK"
+}

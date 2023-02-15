@@ -1,0 +1,440 @@
+-----------------------------------------------------------------------------
+PYTHON
+-----------------------------------------------------------------------------
+https://spark.apache.org/docs/latest/api/python/reference/pyspark.html
+https://spark.apache.org/docs/2.4.0/rdd-programming-guide.html
+https://sparkbyexamples.com/pyspark-tutorial/
+https://github.com/spark-examples/pyspark-examples
+-----------------------------------------------------------------------------
+pyspark
+pyspark --master local[*]
+data = [14, 22, 13, 64, 15, 81, 42, 73, 24, 55]
+sparkSample = sc.parallelize(data)
+filter = sparkSample.filter(lambda x: x < 10)
+filter.collect()
+
+text_file = sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/input")
+counts1 = text_file.flatMap(lambda line: line.split(" "))
+counts2 = counts1.map(lambda word: (word, 1))
+counts3 = counts2.reduceByKey(lambda a, b: a + b)
+counts3.collect()
+counts3.saveAsTextFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/output2")
+
+rdd = sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/EmployeesAll.csv").filter(lambda x: ("emp_no" not in x)).take(5)
+
+rdd = sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/EmployeesAll.csv").filter(lambda x: ("emp_no" not in x)).map(lambda X: (X.split(',')[2],X.split(',')[3],X.split(',')[4])).take(5)
+
+rdd = sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/EmployeesAll.csv").filter(lambda x: ("emp_no" not in x)).map(lambda X: (X.split(',')[2],X.split(',')[3],X.split(',')[4])).filter (lambda x: x[0].startswith("Ara")).filter (lambda x: x[1].startswith("Ba")).filter (lambda x: x[2]=="M").collect()
+
+rdd = sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/EmployeesAll.csv").filter(lambda x: ("emp_no" not in x)).map(lambda X: (X.split(',')[2],X.split(',')[3],X.split(',')[4])).filter (lambda x: x[0].startswith("Ara")).filter (lambda x: x[1].startswith("Ba")).filter (lambda x: x[2]=="M").sortBy(lambda x: x[1], ascending=False).collect()
+
+sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/EmployeesAll.csv").filter(lambda x: ("emp_no" not in x)).map(lambda X: (X.split(',')[2],X.split(',')[3],X.split(',')[4])).filter (lambda x: x[0].startswith("Ara") and x[1].startswith("Ba") and x[2]=="M").sortBy(lambda x: x[1], ascending=False).collect()
+
+sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/EmployeesAll.csv").filter(lambda x: ("emp_no" not in x)).map(lambda X: (X.split(',')[2],X.split(',')[3],X.split(',')[4])).filter (lambda x: x[0].startswith("Ara") and x[1].startswith("Ba") and x[2]=="M").sortBy(lambda x: x[1], ascending=False).saveAsTextFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/output4")
+
+def toCSVLine(data):
+  return ','.join(str(d) for d in data)
+  
+rdd=sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/EmployeesAll.csv").filter(lambda x: ("emp_no" not in x)).map(lambda X: (X.split(',')[2],X.split(',')[3],X.split(',')[4])).filter (lambda x: x[0].startswith("Ara") and x[1].startswith("Ba") and x[2]=="M").sortBy(lambda x: x[1], ascending=False)
+lines = rdd.map(toCSVLine)
+lines.saveAsTextFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/output5")
+
+https://oindrila-chakraborty88.medium.com/relational-entities-on-databricks-2a46c31518ce
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+SCALA
+-----------------------------------------------------------------------------
+https://phoenixnap.com/kb/install-spark-on-windows-10
+-----------------------------------------------------------------------------
+spark-shell
+-----------------------------------------------------------------------------
+val data = 1 to 50000
+val sparkSample = sc.parallelize(data)
+val filter = sparkSample.filter(_ < 10)
+filter.collect()
+-----------------------------------------------------------------------------
+val myfile = sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/training/input")
+val counts = myfile.flatMap(line => line.split(" "))
+val counts2 = counts.map(word => (word, 1))
+val counts3 = counts2.reduceByKey(_ + _)
+val counts4 = counts3.coalesce(1)
+counts3.collect()
+counts3.saveAsTextFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/training/output2")
+-----------------------------------------------------------------------------
+val rdd = sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/EmployeesAll.csv").filter(!_.startsWith("emp_no")).take(5)
+
+val rdd = sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/EmployeesAll.csv")
+val as = rdd.filter(!_.startsWith("emp_no"))
+val df = as.take(5)
+
+val rdd = sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/EmployeesAll.csv").filter(!_.startsWith("emp_no")).map(X => (X.split(',')(2),X.split(',')(3),X.split(',')(4))).take(5)
+
+val rdd = sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/EmployeesAll.csv").filter(!_.startsWith("emp_no")).map(X => (X.split(',')(2),X.split(',')(3),X.split(',')(4))).filter (_._1.startsWith("Ara")).filter (_._2.startsWith("Ba")).filter (_._3.equals("M")).collect()
+
+val rdd = sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/EmployeesAll.csv").filter(!_.startsWith("emp_no")).map(X => (X.split(',')(2),X.split(',')(3),X.split(',')(4))).filter (_._1.startsWith("Ara")).filter (_._2.startsWith("Ba")).filter (_._3.equals("M")).sortBy(_._2, true)
+println(rdd.collect().toList)
+
+val rdd = sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/EmployeesAll.csv").filter(!_.startsWith("emp_no")).map(X => (X.split(',')(2),X.split(',')(3),X.split(',')(4))).filter(x => (x._1.startsWith("Ara") && x._2.startsWith("Ba") && x._3.equals("M"))).sortBy(_._2, true).map(tuple => "%s,%s,%s".format(tuple._1, tuple._2, tuple._3)).saveAsTextFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/output4") 
+
+val rdd = sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/EmployeesAll.csv").filter(!_.startsWith("emp_no")).map(X => (X.split(',')(2),X.split(',')(3),X.split(',')(4))).filter(x => (x._1.startsWith("Ara") && x._2.startsWith("Ba") && x._3.equals("M"))).sortBy(_._2, true).saveAsTextFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/output4")
+-----------------------------------------------------------------------------
+val A = sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/airports_mod.dat")
+val B = sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/Final_airlines")
+val C = sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/routes.dat")
+
+val A1 = A.map(X => (X.split('\t')(3),X.split('\t')(1)))
+val A2 = A1.sortBy(X => (X._1, X._2)).map(X => "%s,%s".format(X._1, X._2)).saveAsTextFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/A1")
+
+val B1 = B.map(X => (X.split(',')(0),X.split(',')(1)))
+val C1 = C.map(X => (X.split(',')(1),X.split(',')(6)))
+val C2 = C.map(X => (X.split(',')(1),X.split(',')(7)))
+val C3 = C2.filter (_._2 == "0")
+val C4 = C1.filter (_._2 == "Y")
+
+val BC1 = B1.join(C3).map(X => X._2._1).distinct().sortBy(X => (X)).saveAsTextFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/A2")
+
+val BC2 = B1.join(C4).map(X => X._2._1).distinct().sortBy(X => (X)).saveAsTextFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/A3")
+
+val A3 = A1.map(X => (X._1, 1)).reduceByKey(_ + _).sortBy(_._2, false).take(5)
+
+val B2 = B.map(X => {val x = X.split(',');(x(6),x(7),x(1))}).filter(x => (x._1.equals("United States") && x._2.equals("Y"))).sortBy(_._3, true).map(X => "%s".format(X._3)).saveAsTextFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/A4")
+-----------------------------------------------------------------------------
+val A = sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/YouTubeData.txt")
+val A1 = A.filter(x => (x.split('\t').size > 9)).map(X => (X.split('\t')(0),X.split('\t')(1),X.split('\t')(2),X.split('\t')(3),X.split('\t')(4),X.split('\t')(5),X.split('\t')(6),X.split('\t')(7),X.split('\t')(8),(X.split('\t').size-9))).map(x => "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s".format(x._1, x._2, x._3, x._4, x._5, x._6, x._7, x._8, x._9, x._10)).saveAsTextFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/A5")
+
+create 'youtube_data', 'info'
+
+hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator=',' -Dimporttsv.columns='HBASE_ROW_KEY,info:uploader,info:age,info:category,info:length,info:views,info:rate,info:ratings,info:comments,info:count' youtube_data /user/cloudera/A5/*
+
+create external table youtube_data(id String, uploader string, age int, category string, length int, views int, rate float, ratings int, comments int, urlcount int)
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+with serdeproperties ("hbase.columns.mapping"=":key,info:uploader,info:age,info:category,info:length,info:views,info:rate,info:ratings,info:comments,info:count")
+tblproperties("hbase.table.name"="youtube_data");
+
+select category,round(avg(urlcount),2)avgcnt from youtube_data group by category order by avgcnt desc;
+-----------------------------------------------------------------------------
+CustomerID,Orders,Total,Country,CustName
+12820,536365:567_536367:76,643,United Kingdom,Fallon Pragnall
+
+val A = sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/OnlineRetail.csv")
+val A1 = A.filter(!_.startsWith("InvoiceNo")).map(Y => {val X = Y.split(",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)", -1);(X(0),X(3),X(5),X(6),X(7))})
+val A2 = A1.map(X => ((X._1+"~"+X._4+"~"+X._5),(X._2.toInt*X._3.toFloat))).reduceByKey(_ + _)
+val A3 = A1.map(X => ((X._4+"~"+X._5),(X._2.toInt*X._3.toFloat))).reduceByKey(_ + _)
+val A4 = A2.map(X => (X._1.split('~')(1)+"~"+X._1.split('~')(2),(X._1.split('~')(0)+":"+X._2))).reduceByKey(_ +"_"+ _)
+val A5 = A4.join(A3).map(X => (X._1.split('~')(0),(X._2._1,X._2._2,X._1.split('~')(1))))
+val B = sc.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/OnlineRetailCust.csv")
+val B1 = B.map(X => (X.split(',')(0),(X.split(',')(1)+" "+X.split(',')(2))))
+val AB = A5.leftOuterJoin(B1).map(X => (X._1,X._2._1._1,X._2._1._2,X._2._1._3,X._2._2.getOrElse("OTC Customer"))).map(x => "%s,%s,%s,%s,%s".format(x._1, x._2, x._3, x._4, x._5)).saveAsTextFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/Orders/29042021")
+
+CREATE EXTERNAL TABLE IF NOT EXISTS Orders(
+CustomerID string,
+Orders map<string,double>,
+Total double,
+Country string,
+CustName string
+)
+ROW FORMAT DELIMITED
+fields terminated by ','
+collection items terminated by '_'
+map keys terminated by ':'
+LOCATION '/user/bigdata/Orders';
+
+set hive.input.dir.recursive=true;
+set hive.mapred.supports.subdirectories=true;
+set hive.supports.subdirectories=true;
+set mapred.input.dir.recursive=true;
+
+select CustomerID,Total,Country,CustName from Orders order by total desc limit 5;
+select Country,count(CustName)as coun from orders where CustName != 'OTC Customer' group by Country order by coun desc;
+-----------------------------------------------------------------------------
+SparkConf sparkConf = new SparkConf().setMaster("local").setAppName("JD Word Counter");
+
+spark-submit --class "Training.ScalaSpark.WordCnt" --master local[*] WordCnt.jar sprk-216-48-190-224-e2e7-108079-ncr.cluster /bigdata/input /bigdata/inputres
+
+spark-submit --class "Training.ScalaSpark.WordCnt" --master yarn --deploy-mode cluster --num-executors 1 --driver-memory 512m --executor-memory 512m --executor-cores 1 WordCnt.jar sprk-216-48-190-224-e2e7-108079-ncr.cluster /bigdata/input /bigdata/inputres2
+
+spark-submit --class "Training.ScalaSpark.FilterEmps" --master local FilterEmps.jar sprk-216-48-190-224-e2e7-108079-ncr.cluster /bigdata/EmployeesAll.csv /bigdata/sparkemps
+
+spark-submit --class "Training.ScalaSpark.Accumulate" --master local[*] Accumulate.jar sprk-216-48-190-224-e2e7-108079-ncr.cluster /bigdata/ratings.dat
+
+spark-submit --class "Training.ScalaSpark.Broadcast" --master local[*] Broadcast.jar sprk-216-48-190-224-e2e7-108079-ncr.cluster /bigdata/ratings.dat /bigdata/movies.dat
+
+spark-submit --class "Training.ScalaSpark.SparkSql" --master local --jars spark-csv_2.11-1.5.0.jar,commons-csv-1.8.jar,spark-xml_2.11-0.9.0.jar,mysql-connector-java-5.1.49.jar SparkSql.jar sprk-216-48-190-224-e2e7-108079-ncr.cluster /bigdata/EmployeesAll.csv /bigdata/output4 /bigdata/person.xml /bigdata/person2.xml /bigdata/olympic.json
+
+spark-shell --master spark://learnspark-216-48-183-151-e2e7-101132-ncr.cluster:7077 --num-executors 8 --driver-memory 512m --executor-memory 512m --executor-cores 1 --total-executor-cores 8
+
+spark-submit --class "Retail.LearnSpark.Spark_FilterEmps" --master spark://learnspark-216-48-183-151-e2e7-101132-ncr.cluster:7077 --num-executors 8 --driver-memory 512m --executor-memory 512m --executor-cores 1 --total-executor-cores 8 Spark_FilterEmps.jar
+
+wget https://repo1.maven.org/maven2/com/databricks/spark-csv_2.11/1.5.0/spark-csv_2.11-1.5.0.jar
+wget https://repo1.maven.org/maven2/org/apache/commons/commons-csv/1.8/commons-csv-1.8.jar
+wget https://repo1.maven.org/maven2/com/databricks/spark-xml_2.11/0.9.0/spark-xml_2.11-0.9.0.jar
+wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.49/mysql-connector-java-5.1.49.jar
+https://kontext.tech/column/code-snippets/369/read-xml-files-in-pyspark
+https://sparkbyexamples.com/pyspark-tutorial/
+https://mungingdata.com/apache-spark/partitionby/
+https://sparkbyexamples.com/spark/using-avro-data-files-from-spark-sql-2-3-x/
+-----------------------------------------------------------------------------
+spark-shell --jars spark-csv_2.11-1.5.0.jar,commons-csv-1.8.jar,spark-xml_2.11-0.9.0.jar,mysql-connector-java-5.1.49.jar
+==================
+val sqlContext = new org.apache.spark.sql.SQLContext(sc)
+val dfs = sqlContext.read.json("file:///opt/DataSet/olympic.json")
+
+dfs.show()
+dfs.printSchema()
+==================
+val AirlinesDF_ = sqlContext.read.format("com.databricks.spark.csv").option("header", "false").option("inferSchema", "true").load("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/Final_airlines")
+val AirlinesDF = AirlinesDF_.select(AirlinesDF_("_c0").as("Airline_ID"),AirlinesDF_("_c1").as("Name"))
+
+val RoutesDF_ = sqlContext.read.format("com.databricks.spark.csv").option("header", "false").option("inferSchema", "true").load("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/routes.dat")
+val RoutesDF = RoutesDF_.select(RoutesDF_("_c1").as("Airline_ID"),RoutesDF_("_c7").as("Stops"))
+
+val AirportsDF_ = sqlContext.read.format("com.databricks.spark.csv").option("delimiter", "\t").option("header", "false").option("inferSchema", "true").load("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/airports_mod.dat")
+
+AirlinesDF.registerTempTable("Airlines")
+RoutesDF.registerTempTable("Routes")
+AirportsDF_.registerTempTable("Airports")
+
+sqlContext.sql("select distinct(a.Name)as Airlines from Airlines a join Routes b on a.Airline_ID=b.Airline_ID where b.Stops=0 order by Airlines").show(false)
+
+sqlContext.sql("select a.Name,Stops from Airlines a join Routes r on a.Airline_ID=r.Airline_ID where Stops=0 group by a.Name,Stops order by a.Name").show(false)
+==================
+case class Movie(MovieID: Int, Title: String, Genres: String)
+case class Rating(UserID: Int,MovieID: Int,Rating: Int,Timestamp: String)
+
+import org.apache.spark.sql.Encoders
+
+val MovieSchema = Encoders.product[Movie].schema
+val RatingSchema = Encoders.product[Rating].schema
+
+val MovieDF = spark.read.schema(MovieSchema).format("com.databricks.spark.csv").option("delimiter", ":").load("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/movies.dat").as[Movie]
+
+val RatingDF = spark.read.schema(RatingSchema).format("com.databricks.spark.csv").option("delimiter", ",").load("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/ratings.dat").as[Rating]
+
+MovieDF.printSchema
+RatingDF.printSchema
+MovieDF.createOrReplaceTempView("movies")
+RatingDF.createOrReplaceTempView("ratings")
+
+import org.apache.spark.storage.StorageLevel._
+
+val MvRcmd = spark.sql("with table3 as (with table1 as (select movieid,count(rating)cnt from ratings group by movieid),table2 as (select movieid,avg(rating)avgrating from ratings group by movieid)(select table1.movieid,cnt,avgrating from table1 join table2 on table1.movieid = table2.movieid where cnt > 500 order by cnt desc,avgrating desc limit 10))(select movies.*,table3.cnt,table3.avgrating from table3 inner join movies on table3.movieid = movies.movieid order by cnt desc,avgrating desc)")
+MvRcmd.persist(DISK_ONLY)
+MvRcmd.show(false)
+
+spark.sql("with table3 as (with table1 as (select movieid,count(rating)cnt from ratings group by movieid),table2 as (select movieid,avg(rating)avgrating from ratings group by movieid)(select table1.movieid,cnt,avgrating from table1 join table2 on table1.movieid = table2.movieid where cnt > 500 order by cnt desc,avgrating desc limit 10))(select /*+ BROADCAST(movies) */ movies.*,table3.cnt,table3.avgrating from table3 inner join movies on table3.movieid = movies.movieid order by cnt desc,avgrating desc)").show(false)
+
+val MovieDF_ = spark.read.schema(MovieSchema).format("com.databricks.spark.csv").option("delimiter", ":").csv(spark.sqlContext.read.textFile("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/movies2.dat").map(line => line.split("::").mkString(":"))).as[Movie]
+==================
+val dfs = sqlContext.read.format("com.databricks.spark.csv").option("header", "true").option("inferSchema", "true").load("hdfs://sprk-216-48-190-224-e2e7-108079-ncr.cluster:8020/user/bigdata/EmployeesAll.csv")
+dfs.select(dfs("first_name"), dfs("last_name")).show()
+dfs.select(dfs("first_name"), dfs("last_name")).limit(13).show()
+dfs.filter(dfs("gender") === "M" && dfs("first_name").like("Ara%") && dfs("last_name").like("Ba%")).show()
+dfs.registerTempTable("Employees")
+val EmpQuery = sqlContext.sql("Select * from Employees where gender ='M' and first_name like '%Ara%' and last_name like '%Ba%'");
+EmpQuery.show(false)
+-----------------------------------------------------------------------------
+spark.sqlContext.setConf("spark.sql.shuffle.partitions", "2")
+val HiveProps = spark.table("rakesh.props")
+HiveProps.createOrReplaceTempView("Property")
+spark.sql("select city,type,count(*) total from Property group by city,type order by city,type").show()
+-----------------------------------------------------------------------------		
+rdd = sc.textFile ("file:///opt/spark/CHANGES.txt")
+rdd.Collect()
+rdd.First()
+rdd.Take(5)
+rdd.TakeSample(False, 10, 2)
+rdd.Count()
+
+Transformation and Actions in Apache Spark
+Spark Transformations
+map()
+flatMap()
+filter()
+sample()
+union()
+intersection()
+distinct()
+join()
+
+Spark Actions
+reduce()             
+collect()               
+count()
+first()    
+takeSample(withReplacement, num, [seed])  
+
+data.sample(False,0.02,None).collect()
+
+
+val newRd = myRdd.mapPartitions(partition => {
+  val connection = new DbConnection /*creates a db connection per partition*/
+
+  val newPartition = partition.map(record => {
+    readMatchingFromDB(record, connection)
+  }).toList // consumes the iterator, thus calls readMatchingFromDB 
+
+  connection.close() // close dbconnection here
+  newPartition.iterator // create a new iterator
+})
+
+https://medium.com/teads-engineering/updating-to-spark-3-0-in-production-f0b98aa2014d
+https://databricks.com/blog/2020/05/29/adaptive-query-execution-speeding-up-spark-sql-at-runtime.html
+http://blog.madhukaraphatak.com/spark-3-introduction-part-1/
+https://stackoverflow.com/questions/50803092/write-spark-dataframe-into-existing-parquet-hive-table#51688432
+https://mungingdata.com/apache-spark/partitionby/
+https://medium.com/@mrpowers/managing-spark-partitions-with-coalesce-and-repartition-4050c57ad5c4#.36o8a7b5j
+https://github.com/apache/spark/tree/master/examples/src/main/java/org/apache/spark/examples/sql/streaming
+https://stackoverflow.com/questions/21185092/apache-spark-map-vs-mappartitions
+https://bzhangusc.wordpress.com/
+https://hub.packtpub.com/understanding-spark-rdd/
+hash/range partition
+https://gist.github.com/mannharleen/d93f16b55117767e3046d62ed76d8e42
+https://apachesparkbook.blogspot.com/2015/11/mappartition-example.html
+https://changhsinlee.com/pyspark-udf/
+https://sparkbyexamples.com/pyspark/pyspark-partitionby-example/
+https://www.quora.com/What-is-difference-between-dataframe-and-RDD?share=1
+==================================================================================
+https://phoenixnap.com/kb/install-spark-on-windows-10
+https://spark-packages.org/
+https://sparkbyexamples.com/spark/spark-sampling-with-examples/#spark-rdd-sampling
+https://stackoverflow.com/questions/36696326/map-vs-mapvalues-in-spark/36696468
+https://www.javatpoint.com/apache-spark-union-function
+https://dkbalachandar.wordpress.com/2018/12/31/spark-cogroup/
+http://blog.madhukaraphatak.com/spark-rdd-fold/
+https://backtobazics.com/big-data/spark/apache-spark-aggregatebykey-example/
+http://bytepadding.com/big-data/spark/groupby-vs-reducebykey/
+https://stackoverflow.com/questions/43960583/whats-the-difference-between-join-and-cogroup-in-apache-spark
+http://apachesparkbook.blogspot.com/2015/11/mappartition-example.html
+https://stackoverflow.com/questions/37734398/how-does-the-collectasmap-function-work-for-spark-api
+https://dvirgiln.github.io/windowing-using-spark-structured-streaming/
+https://github.com/cloudxlab/bigdata/blob/master/spark/examples/graphx/pagerank.scala
+https://github.com/vaquarkhan/Techies-Notes-wiki/blob/master/GraphX-1.md
+https://datascience-school.com/blog/practical-apache-spark-in-10-minutes-part-6-graphx/
+https://bcourses.berkeley.edu/courses/1267848/pages/lab-11
+https://neo4j.com/docs/graph-algorithms/current/labs-algorithms/triangle-counting-clustering-coefficient/
+https://github.com/kaysush/spark-ml-pipeline-demo
+https://medium.com/@Sushil_Kumar/machine-learning-pipelines-with-spark-ml-94cd9b4c973d
+https://github.com/cloudxlab/bigdata/blob/master/spark/examples/mllib/ml-recommender.scala
+https://www.section.io/engineering-education/sparksql-mllibspark-part-3/
+https://datasciencemadesimpler.wordpress.com/tag/alternating-least-squares/
+https://towardsdatascience.com/building-a-recommendation-engine-to-recommend-books-in-spark-f09334d47d67
+https://towardsdatascience.com/prototyping-a-recommender-system-step-by-step-part-2-alternating-least-square-als-matrix-4a76c58714a1
+https://stackoverflow.com/questions/30403685/how-to-debug-spark-application-locally
+https://minyodev.medium.com/apache-spark-custom-logging-da2e42fca6e
+https://databricks.com/blog/2020/05/29/adaptive-query-execution-speeding-up-spark-sql-at-runtime.html
+https://medium.com/@Shkha_24/catalyst-optimizer-the-power-of-spark-sql-cad8af46097f
+https://www.linkedin.com/pulse/catalyst-tungsten-apache-sparks-speeding-engine-deepak-rajak/
+lzocompression speculative execution stragglers https://dzone.com/articles/identify-and-resolve-stragglers-in-your-spark-appl
+https://blog.devops.dev/spark-cluster-level-optimisation-techniques-lets-escalate-our-job-using-power-of-spark-6d8af2261181
+https://towardsdatascience.com/machine-learning-model-deployment-using-spark-585e80b2eae1
+https://sparkbyexamples.com/spark/spark-sql-performance-tuning-configurations/
+https://data-flair.training/blogs/apache-spark-performance-tuning/
+https://www.unifieddatascience.com/spark-performance-tuning-guidelines
+https://blog.knoldus.com/kryo-serialization-in-spark/
+https://umbertogriffo.gitbook.io/apache-spark-best-practices-and-tuning/
+https://medium.com/analytics-vidhya/tuning-apache-spark-e7ae5e02e9d4
+https://medium.com/analytics-vidhya/spark-streaming-output-modes-600c689b6bf9
+https://www.youtube.com/watch?v=NFwNKkIkN6o&list=PLe1T0uBrDrfOYE8OwQvooPjmnP1zY3wFe
+https://medium.com/ymedialabs-innovation/apache-spark-on-a-multi-node-cluster-b75967c8cb2b
+https://medium.com/agile-lab-engineering/spark-remote-debugging-371a1a8c44a8
+https://www.java-success.com/remotely-debugging-spark-submit-jobs-java/
+https://medium.com/analytics-vidhya/debugging-spark-code-locally-like-a-boss-ec382c7a25a4
+https://stackoverflow.com/questions/25914057/task-not-serializable-exception-while-running-apache-spark-job/43015968
+https://gankrin.org/fix-spark-error-org-apache-spark-sparkexception-task-not-serializable/
+https://stackoverflow.com/questions/31233830/apache-spark-setting-spark-eventlog-enabled-and-spark-eventlog-dir-at-submit-or
+https://community.cloudera.com/t5/Community-Articles/How-to-capture-Spark-Driver-and-Executor-Logs-in-yarn-client/ta-p/247011
+https://stackoverflow.com/questions/55452892/contextcleaner-cleaned-accumulator-what-does-it-mean-in-scala-spark
+https://itnext.io/handling-data-skew-in-apache-spark-9f56343e58e8
+https://www.youtube.com/c/SravanaLakshmiPisupatiSparklingFuture/videos
+https://www.youtube.com/@AzarudeenShahul/videos
+https://medium.com/@GusCavanaugh/how-to-process-a-1-tb-dataframe-in-30-seconds-with-a-3-tb-dask-cluster-5f47e46f9742
+https://www.unifieddatascience.com/spark-performance-tuning-guidelines
+https://spark.apache.org/docs/latest/tuning.html
+https://towardsdatascience.com/basics-of-apache-spark-configuration-settings-ca4faff40d45
+https://dzone.com/articles/databricks-delta-lake-using-java
+https://www.confessionsofadataguy.com/introduction-to-unit-testing-with-pyspark/
+https://medium.com/@davisjustin42/writing-pyspark-unit-tests-1e0ef6187f5e
+https://github.com/palantir/pyspark-style-guide
+
+spark-shell --master local[*] --jars spark-csv_2.11-1.5.0.jar,commons-csv-1.8.jar,spark-xml_2.11-0.9.0.jar,mysql-connector-java-5.1.49.jar
+
+sc.setLogLevel("ERROR")
+
+val Df_xml=spark.read.format("com.databricks.spark.xml").option("rootTag","Employees").option("rowTag","Employee").load("file:///opt/DataSet/employees.xml")
+Df_xml.show(false)
+Df_xml.createOrReplaceTempView("employeexml")
+Df_xml.printSchema()
+
+val Df_json=spark.read.json("file:///opt/Matsya/MN/bigdata/1Jkf1GUcvXcAQjg/emp.json")
+{"empId":"10001","phoneNumber":"408-1234567","emailAddress":"geo.face@gmail.com"}
+{"empId":"10002","phoneNumber":"454-7767788","emailAddress":"bez.sim@gmail.com"}
+val Df_json=spark.read.option("multilines","true").json("file:///opt/DataSet/employees.json")
+Df_json.show(false)
+Df_json.createOrReplaceTempView("employeejson")
+Df_json.printSchema()
+
+val Df_csv=spark.read.option("header", "true").option("delimiter", ",").csv("file:///opt/DataSet/employees.csv")
+Df_csv.show(false)
+Df_csv.createOrReplaceTempView("employeecsv")
+Df_csv.printSchema()
+
+val Df_mysql=spark.read.format("jdbc").option("url", "jdbc:mysql://bigdata-216-48-179-229-e2e7-100457-ncr.cluster/retail_db").option("driver", "com.mysql.jdbc.Driver").option("dbtable", "employeesql").option("user", "mysqluser").option("password", "mysqluser123").load()
+import org.apache.spark.storage.StorageLevel._
+Df_mysql.persist(MEMORY_AND_DISK)
+Df_mysql.show(false)
+Df_mysql.createOrReplaceTempView("employeesql")
+Df_mysql.printSchema()
+
+https://blog.ippon.tech/mongodb-and-apache-spark-getting-started-tutorial/
+
+val DF_res=spark.sql("select a.empId as EmployeeId,c.first_name as FirstName,a.lastName as LastName,a.gender as Gender,b.emailAddress as Email,b.phoneNumber as Contact,d.dept as Department,a.salary as Salary from employeexml a inner join employeejson b on a.empId=b.empId inner join employeecsv c on c.emp_no=b.empId inner join employeesql d on d.emp_no=c.emp_no")
+DF_res.show(false)
+DF_res.printSchema()
+
+DF_res.coalesce(1).write.mode("Overwrite").option("header", "true").csv("file:///opt/Matsya/MN/bigdata/1Jkf1GUcvXcAQjg/res/1")
+DF_res.coalesce(1).write.mode("Overwrite").option("header", "true").json("file:///opt/Matsya/MN/bigdata/1Jkf1GUcvXcAQjg/res/2")
+DF_res.coalesce(1).write.mode("Overwrite").option("header", "true").format("com.databricks.spark.xml").option("rootTag", "Employees").option("rowTag", "Employee").save("file:///opt/Matsya/MN/bigdata/1Jkf1GUcvXcAQjg/res/3")
+DF_res.coalesce(1).write.mode("Overwrite").option("header", "true").parquet("file:///opt/Matsya/MN/bigdata/1Jkf1GUcvXcAQjg/res/4")
+DF_res.coalesce(1).write.mode("Overwrite").option("header", "true").orc("file:///opt/Matsya/MN/bigdata/1Jkf1GUcvXcAQjg/res/5")
+DF_res.coalesce(1).write.mode("Overwrite").option("header", "true").format("com.databricks.spark.avro").save("file:///opt/Matsya/MN/bigdata/1Jkf1GUcvXcAQjg/res/6")
+
+val resdf1=spark.read.parquet("file:///opt/Matsya/MN/bigdata/1Jkf1GUcvXcAQjg/res/4/*")
+resdf1.createOrReplaceTempView("emps1")
+spark.sql("select * from emps1").show(false)
+
+val resdf2=spark.read.orc("file:///opt/Matsya/MN/bigdata/1Jkf1GUcvXcAQjg/res/5/*")
+resdf2.createOrReplaceTempView("emps2")
+spark.sql("select * from emps2").show(false)
+
+val resdf3=spark.read.format("com.databricks.spark.avro").load("file:///opt/Matsya/MN/bigdata/1Jkf1GUcvXcAQjg/res/6/*")
+resdf3.createOrReplaceTempView("emps3")
+spark.sql("select * from emps3").show(false)
+
+could you please discuss, catalyst optimizer, AQE, tungsten encoder and how it helps us in project, and you haven't exception handling concepts, what kind common exception we get in spark and how to handle them, I need help on this concepts
+==========================================================================================
+
+kafka-topics --zookeeper sprk-164-52-219-174-e2e7-81311-ncr.cluster:2181,sprk-164-52-219-173-e2e7-81310-ncr.cluster:2181,sprk-164-52-219-175-e2e7-81312-ncr.cluster:2181/kafka --topic ATM_Transactions --create --partitions 1 --replication-factor 3
+
+kafka-console-producer --broker-list sprk-164-52-219-173-e2e7-81310-ncr.cluster:9092,sprk-164-52-219-174-e2e7-81311-ncr.cluster:9092,sprk-216-48-190-224-e2e7-108079-ncr.cluster:9092 --topic ATM_Transactions
+
+kafka-console-consumer --bootstrap-server sprk-164-52-219-173-e2e7-81310-ncr.cluster:9092,sprk-164-52-219-174-e2e7-81311-ncr.cluster:9092,sprk-216-48-190-224-e2e7-108079-ncr.cluster:9092 --topic ATM_Transactions --from-beginning
+
+spark-submit --class "Training.ScalaSpark.SpeedLayer_BFSI" --master local[*] SpeedLayer_BFSI.jar localhost 9998 10 30 10 1 ATM_Transactions /tmp/BFSI sprk-164-52-219-173-e2e7-81310-ncr.cluster:9092,sprk-164-52-219-174-e2e7-81311-ncr.cluster:9092,sprk-216-48-190-224-e2e7-108079-ncr.cluster:9092 0
+
+==========================================================================================
+import org.apache.spark.graphx.GraphLoader
+val graph = GraphLoader.edgeListFile(sc, "file:///opt/Matsya/MN/bigdata/1Jkf1GUcvXcAQjg/followers.txt")
+val ranks = graph.pageRank(0.0001).vertices
+ranks.collect()
+val users = sc.textFile("file:///opt/Matsya/MN/bigdata/1Jkf1GUcvXcAQjg/users.txt").map { line =>
+  val fields = line.split(",")
+  (fields(0).toLong, fields(1))
+}
+val ranksByUsername = users.join(ranks).map {
+  case (id, (username, rank)) => (username, rank)
+}
+println(ranksByUsername.collect().mkString("\n"))
+
+https://www.cloudduggu.com/spark/graphx/
+==========================================================================================
