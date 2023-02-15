@@ -1,0 +1,11 @@
+version: "3"
+services:
+  spark_testing:
+    build: docker
+    environment:
+      - STAGE=local
+    command: jupyter lab
+    ports:
+      - "10000:8888"
+    volumes:
+      - .:/home/databricks/work
