@@ -1,0 +1,18 @@
+version: "3"
+services:
+  spark_testing:
+    build: env/docker/base
+    environment:
+      - STAGE=local
+    command: start-notebook.sh --NotebookApp.token="local spark cluster"
+    ports:
+      - "10000:8888"
+    volumes:
+      - .:/home/jovyan
+  mlflow_testing:
+    build: env/docker/base
+    command: mlflow server --host 0.0.0.0
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./home/jovyan
