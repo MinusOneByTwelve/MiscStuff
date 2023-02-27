@@ -75,6 +75,7 @@ pyspark logger log4j
 https://docs.databricks.com/clusters/cluster-config-best-practices.html
 https://github.com/spark-examples
 https://learn.microsoft.com/en-gb/azure/databricks/workflows/
+https://stackoverflow.com/questions/70344664/how-to-change-databricks-ui-files-upload-default-path-from-filestore-tables
 ----------------
 https://medium.com/@alexandergao/core-pyspark-performing-an-inner-join-on-an-rdd-b8bac25c7ccb
 http://apachesparkbook.blogspot.com/2015/12/mapvalues-example.html
@@ -85,6 +86,16 @@ https://sparkbyexamples.com/pyspark/pyspark-rdd-actions/
 https://stackoverflow.com/questions/54662968/how-to-countbyvalue-in-pyspark-with-duplicate-key
 https://linuxhint.com/pyspark-rdd-lookup-collectasmap/
 https://ragrawal.wordpress.com/2015/07/26/pyspark-takeordered-on-multiple-fields/
+https://umbertogriffo.gitbook.io/apache-spark-best-practices-and-tuning/parallelism/sparksqlshufflepartitions_draft
+https://sparkbyexamples.com/spark/spark-size-of-dataframe/
+----------------
+https://towardsdatascience.com/what-are-rmse-and-mae-e405ce230383#:~:text=Technically%2C%20RMSE%20is%20the%20Root,actual%20values%20of%20a%20variable.
+https://towardsdatascience.com/your-first-apache-spark-ml-model-d2bb82b599dd
+https://docs.databricks.com/_extras/notebooks/source/mlflow/mlflow-quick-start-scala.html
+https://medium.com/@the.data.yoga/running-scikit-models-in-apache-pyspark-4a2ac5e693c4
+https://towardsdatascience.com/deploy-a-python-model-more-efficiently-over-spark-497fc03e0a8d
+https://stackoverflow.com/questions/71495396/unable-to-make-prediction-with-sklearn-model-on-pyspark-dataframe
+https://heartbeat.comet.ml/wrapping-sk-learn-models-in-pyspark-for-prediction-175d863325ac
 ==============================================================================
 Multifaceted deployAgnostic Timesaving Scalable analYtics Amalgamated PLATFORM
 ==============================================================================
@@ -95,43 +106,43 @@ K8s MULTINODE
 TERMINALS AVAILABLE
 -----------------------
 (1) TrainerMachine (192.168.0.106)
-(2) bfs-sprk-216-48-182-106-e2e7-114003-ncr.cluster (216.48.182.106)
-(3) bfs-sprk-216-48-182-124-e2e7-114004-ncr.cluster (216.48.182.124)
-(4) bfs-sprk-216-48-182-131-e2e7-114005-ncr.cluster (216.48.182.131)
-(5) bfs-sprk-216-48-182-132-e2e7-114006-ncr.cluster (216.48.182.132)
-(6) bfs-sprk-216-48-182-133-e2e7-114007-ncr.cluster (216.48.182.133)
+(2) bfserv-216-48-178-59-e2e7-116760-ncr.cluster (216.48.178.59)
+(3) bfserv-216-48-179-71-e2e7-116761-ncr.cluster (216.48.179.71)
+(4) bfserv-216-48-181-140-e2e7-116762-ncr.cluster (216.48.181.140)
+(5) bfserv-216-48-182-69-e2e7-116763-ncr.cluster (216.48.182.69)
+(6) bfserv-216-48-182-77-e2e7-116764-ncr.cluster (216.48.182.77)
 -----------------------
 
 -----------------------
 ACCESS INFO
 -----------------------
-FELLOWSHIP => bfs-sprk
-LGDf5HUVC4oNujB => Cwru3JT33RG2iM9
-E2E (matsya) => QsisQF8NMFMOWO4
+FELLOWSHIP => bfserv
+yw3JVLBECf4eu1k => JpED1RT29bIbjLv
+E2E (matsya) => wizgoowL0ticpx9
 -----------------------
-* /opt/Matsya/matsya-mn-bfs-sprk-terminal.pem
-* /opt/Matsya/matsya-mn-bfs-sprk-terminal.ppk
+* /opt/Matsya/matsya-mn-bfserv-terminal.pem
+* /opt/Matsya/matsya-mn-bfserv-terminal.ppk
 -----------------------
-* PASSWORD LOGIN     => sshpass -p "Cwru3JT33RG2iM9" ssh -p PORT -o "StrictHostKeyChecking=no" LGDf5HUVC4oNujB@TERMINAL
+* PASSWORD LOGIN     => sshpass -p "JpED1RT29bIbjLv" ssh -p PORT -o "StrictHostKeyChecking=no" yw3JVLBECf4eu1k@TERMINAL
 -----
-* FILE PUSH          => /opt/Matsya/matsya-mn-bfs-sprk-push.sh
+* FILE PUSH          => /opt/Matsya/matsya-mn-bfserv-push.sh
 -----
-* EXECUTE            => /opt/Matsya/matsya-mn-bfs-sprk-exec.sh
+* EXECUTE            => /opt/Matsya/matsya-mn-bfserv-exec.sh
 -----
-* CONNECT TERMINAL   => /opt/Matsya/matsya-mn-bfs-sprk-connect.sh
+* CONNECT TERMINAL   => /opt/Matsya/matsya-mn-bfserv-connect.sh
 -----
-* ADD TERMINAL       => /opt/Matsya/matsya-mn-bfs-sprk-add.sh
+* ADD TERMINAL       => /opt/Matsya/matsya-mn-bfserv-add.sh
 -----
-* REMOVE TERMINAL    => /opt/Matsya/matsya-mn-bfs-sprk-remove.sh
+* REMOVE TERMINAL    => /opt/Matsya/matsya-mn-bfserv-remove.sh
 -----
-* SYNC TERMINAL      => /opt/Matsya/matsya-mn-bfs-sprk-sync.sh
+* SYNC TERMINAL      => /opt/Matsya/matsya-mn-bfserv-sync.sh
 -----
-* DISBAND FELLOWSHIP => /opt/Matsya/matsya-mn-bfs-sprk-kill.sh
+* DISBAND FELLOWSHIP => /opt/Matsya/matsya-mn-bfserv-kill.sh
 -----------------------
 
 Total Time Taken => 13 Minutes
 
-sshpass -p 'Cwru3JT33RG2iM9' ssh -o StrictHostKeyChecking=no LGDf5HUVC4oNujB@216.48.182.132
+sshpass -p 'JpED1RT29bIbjLv' ssh -o StrictHostKeyChecking=no yw3JVLBECf4eu1k@216.48.178.59
 sshpass -p '1SMnVw6plQi2VFU' ssh -o StrictHostKeyChecking=no mO9zv9KJL8ejheh@216.48.181.60
 ==============================================================================
 http://training-216-48-181-56-e2e7-113488-ncr.cluster:5601 elastic 8d23XjnVlCEIcttEvsUT
