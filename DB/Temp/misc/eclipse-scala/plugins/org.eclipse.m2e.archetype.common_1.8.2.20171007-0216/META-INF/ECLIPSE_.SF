@@ -1,0 +1,69 @@
+Signature-Version: 1.0
+SHA-256-Digest-Manifest-Main-Attributes: HGwOYoToo+yLXu3wkRsrOdqftBDuc
+ 7l4NF1dmdPBumU=
+SHA-256-Digest-Manifest: GWQVUvbiiBDW/lsKOSZFsd2tX5Kbxkpe/shf3h+ghN8=
+Created-By: 1.8.0_131 (Oracle Corporation)
+
+Name: archetype-registry-2.4.jar
+SHA-256-Digest: qGCVO+ZAzNg+dutLEfAkJaYAb37l1ZBPtiAUg977Pyg=
+
+Name: about.html
+SHA-256-Digest: 8uzGPJidFeFTnkIc5G1InRgqWE4q7o4Nwn7sf+/qV6E=
+
+Name: velocity-1.5.jar
+SHA-256-Digest: 1N4D+WVeZiojWhs6O5Kw4R95FlJx0+I1jTt3k1Tb950=
+
+Name: archetype-descriptor-2.4.jar
+SHA-256-Digest: hFnbBbllT1TckAYgTil+wH+T2LlmX8elkfznJQrEcrA=
+
+Name: about_files/LICENSE-2.0.txt
+SHA-256-Digest: pgHwXlfwoswdBsTcqm60MdG9UCR1vmm7cVCWX+ZHJaw=
+
+Name: jchardet-1.0.jar
+SHA-256-Digest: jkJA8hmaEl5/ict4QhZf9TvpUKaAYKi81tvQKeD5J40=
+
+Name: plexus-velocity-1.1.8.jar
+SHA-256-Digest: lkncUCFNnFFYmwQVsZDW3LE6IzWVlcYrvPz3VDAfzw0=
+
+Name: oro-2.0.8.jar
+SHA-256-Digest: Vn5rQOoliUPp1b+OpzxRp9yj214WR0+EZ5M1pppmdNg=
+
+Name: about_files/MPL-1.1.txt
+SHA-256-Digest: cff6TGP+E4Q7p40I+0ioC5SGEBOg5wnj411BYRM035o=
+
+Name: about_files/LICENSE-1.1.txt
+SHA-256-Digest: wSb5R81ihoUrtlrR065CgWbpV+qNmPTTBIg6dlDlxro=
+
+Name: about_files/dom4j-LICENSE.txt
+SHA-256-Digest: 1iQAoeTrGMpbappA3hYTbdLW2XdM+q7L+tV8f+a5ztM=
+
+Name: about_files/jdom-LICENSE.txt
+SHA-256-Digest: p64W72afo+jif8pLLmVNRGoUAM8JzgBV+sXjWhtReMc=
+
+Name: commons-collections-3.2.2.jar
+SHA-256-Digest: P2PFm25t7+kx1K/m8yILZyl8Ux3QBx7CAzrb+iFkI5w=
+
+Name: archetype-catalog-2.4.jar
+SHA-256-Digest: 0Pf6V1LgCsj5ZeYFH5DMRflMvqg30iwq5Yf5rr96ye4=
+
+Name: commons-lang-2.1.jar
+SHA-256-Digest: iOmllv9WQztV3yoMrGL7AZPeujd8gw2BhO8P5L6Cdnw=
+
+Name: jdom-1.0.jar
+SHA-256-Digest: GaVOACNvajzyVVSy+C2rWo83rZPHeLHbYQSSkw6UFF8=
+
+Name: dom4j-1.6.1.jar
+SHA-256-Digest: URQxKPKR0/THTpjehoHuGDQ1TbxJVkVhG/W6sp1m75A=
+
+Name: archetype-common-2.4.jar
+SHA-256-Digest: zGOisgyzrWGZYrmoxFb9JX2sSL1B6IrZPTZVy9oShFM=
+
+Name: OSGI-INF/l10n/bundle.properties
+SHA-256-Digest: f4MSW+v/I8+AUOeBUs08GBM6ugE4x+VWTfPKbQiNrJ4=
+
+Name: maven-invoker-2.1.1.jar
+SHA-256-Digest: JoQ9iOfFgHXdyi2W9207L2W3kAgnyBB1LX8U9xGNG00=
+
+Name: commons-io-2.2.jar
+SHA-256-Digest: Jq7Pt0ccY0Nqm9ogAxWhtIcB+2DinNC2TvSZi7yoE+k=
+

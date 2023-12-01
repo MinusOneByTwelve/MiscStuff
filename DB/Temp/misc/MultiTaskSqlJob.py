@@ -15,7 +15,7 @@ dbfs:/FileStore/tables/MultiTaskFiles/MultiTaskSqlJob.py
 ["MultiTaskDBJob","B1","/FileStore/tables/MultiTaskData/employees.xml","Employee","/FileStore/MultiTaskJob/XML"]
 ["MultiTaskDBJob","B2","/FileStore/tables/MultiTaskData/employees.csv","/FileStore/MultiTaskJob/CSV"]
 ["MultiTaskDBJob","B3","/FileStore/tables/MultiTaskData/employees.json","/FileStore/MultiTaskJob/JSON"]
-["MultiTaskDBJob","B4","/FileStore/MultiTaskJob/MYSQL","216.48.181.38","retail_db","employeesql","mysqluser","mysqluser123"]
+["MultiTaskDBJob","B4","/FileStore/MultiTaskJob/MYSQL","91.203.133.229","retail_db","employeesql","mysqluser","mysqluser123"]
 ["MultiTaskDBJob","C","/FileStore/MultiTaskJob","/FileStore/MultiTaskJob/XML","/FileStore/MultiTaskJob/JSON","/FileStore/MultiTaskJob/CSV","/FileStore/MultiTaskJob/MYSQL"]
 ["MultiTaskDBJob","D","/FileStore/MultiTaskJob/FinalResult","/FileStore/MultiTaskJob/XML","/FileStore/MultiTaskJob/JSON","/FileStore/MultiTaskJob/CSV","/FileStore/MultiTaskJob/MYSQL"]
 """

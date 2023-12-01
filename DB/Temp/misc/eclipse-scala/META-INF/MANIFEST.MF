@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Created-By: 1.8.0_101 (Oracle Corporation)
+
+Name: eclipse.exe
+SHA-256-Digest: jsRSd+lrx7TLAhHZ3Ma0O66ngIbrVFdWinEZ+NrHLDk=
+
+Name: eclipsec.exe
+SHA-256-Digest: 58boke5hq9yJIAPsc2Al89XgdUkIB9BL/9ZGkO/FmDc=
+

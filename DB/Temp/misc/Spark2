@@ -7,7 +7,7 @@ sudo yum groupinstall "Development Tools" -y
 sudo yum install openssl-devel libffi-devel bzip2-devel -y
 wget https://cdn.azul.com/zulu/bin/zulu8.68.0.19-ca-jdk8.0.362-linux.x86_64.rpm
 wget https://downloads.lightbend.com/scala/2.12.14/scala-2.12.14.rpm
-wget https://archive.apache.org/dist/spark/spark-3.3.0/spark-3.3.0-bin-hadoop3-scala2.13.tgz
+wget https://archive.apache.org/dist/spark/spark-3.3.0/spark-3.3.0-bin-hadoop3.tgz
 wget https://www.python.org/ftp/python/3.9.5/Python-3.9.5.tar.xz
 sudo yum install -y zulu8.68.0.19-ca-jdk8.0.362-linux.x86_64.rpm
 sudo yum install -y scala-2.12.14.rpm
@@ -36,23 +36,34 @@ sudo rm -rf zulu8.68.0.19-ca-jdk8.0.362-linux.x86_64.rpm
 sudo rm -rf scala-2.12.14.rpm
 ls
 //ONLY ON MASTER ssh-keygen -t rsa -P ""
-sudo mkdir /tmp/spark-events && sudo chmod -R 777 /tmp/spark-events
-tar xf spark-3.3.0-bin-hadoop3-scala2.13.tgz
+sudo mkdir -p /tmp/spark-events && sudo chmod -R 777 /tmp/spark-events
+tar xf spark-3.3.0-bin-hadoop3.tgz
 ls
-sudo mv spark-3.3.0-bin-hadoop3-scala2.13 /opt/spark && sudo chmod -R 777 /opt/spark && ls -l /opt && rm -f spark-3.3.0-bin-hadoop3-scala2.13.tgz && ls
-echo 'export PATH=$PATH:/opt/spark/bin' >> ~/.bashrc
+sudo mv spark-3.3.0-bin-hadoop3 /opt/Spark && sudo chmod -R 777 /opt/Spark && ls -l /opt && rm -f spark-3.3.0-bin-hadoop3.tgz && ls
+echo 'export PATH=$PATH:/opt/Spark/bin' >> ~/.bashrc
 cat ~/.bashrc
 source ~/.bashrc
-//ONLY ON MASTER cd /opt/spark/conf && sudo cp spark-env.sh.template spark-env.sh && sudo nano spark-env.sh 
+//ONLY ON MASTER cd /opt/Spark/conf && sudo cp spark-env.sh.template spark-env.sh && sudo nano spark-env.sh 
 cd ~
-sudo chmod -R 777 /opt/spark
-cd /opt/spark && ./sbin/start-all.sh && cd ~
-cd /opt/spark && ./sbin/start-history-server.sh && cd ~
-http://masternode:8080/
-http://masternode:18080/
-spark-shell --master spark://masternode:7077
-cd /opt/spark && ./sbin/stop-all.sh && cd ~
-cd /opt/spark && ./sbin/stop-history-server.sh && cd ~
+sudo chmod -R 777 /opt/Spark
+sudo chown -R root:root /opt/Spark
+cd /opt/Spark && ./sbin/start-all.sh && cd ~
+cd /opt/Spark && ./sbin/start-history-server.sh && cd ~
+http://master1:8080/
+http://master1:18080/
+spark-shell --master spark://master1:7077
+cd /opt/Spark && ./sbin/stop-all.sh && cd ~
+cd /opt/Spark && ./sbin/stop-history-server.sh && cd ~
+
+sg jec -c "cd /opt/Spark && ./sbin/start-all.sh && cd ~"
+sg jec -c "cd /opt/Spark && ./sbin/start-history-server.sh --properties-file /opt/SparkJobHistoryServerConf && cd ~"
+http://master1:1285
+http://driver1:1512
+http://driver2:1512
+sg jec -c "cd /opt/Spark && ./sbin/stop-history-server.sh && cd ~"
+sg jec -c "cd /opt/Spark && ./sbin/stop-all.sh && cd ~"
+jec-spark-syncjoblogs /opt/SparkJob_History_Events_Logs
+
 
 wget https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.6.0-x86_64.rpm
 sudo yum install -y filebeat-8.6.0-x86_64.rpm
@@ -62,6 +73,9 @@ sudo touch /tmp/Retail_LearnSpark.log && sudo chmod 777 /tmp/Retail_LearnSpark.l
 echo 'spark1' >> /tmp/Retail_LearnSpark.log
 sudo chown root:root /etc/filebeat/filebeat.yml && sudo systemctl restart filebeat && sudo systemctl status filebeat && sudo filebeat setup -e
 ==============================================================================
+https://twitter.com/i/status/1720497370310258940 THE OUTWORLD VeranoVicki
+https://gist.github.com/aseigneurin/3af6b228490a8deab519c6aea2c209bc sparkmasterHA
+https://mallikarjuna_g.gitbooks.io/spark/content/exercises/spark-exercise-standalone-master-ha.html sparkmasterHA
 https://docs.databricks.com/dbfs/filestore.html
 https://learn.microsoft.com/en-gb/azure/databricks/
 https://learn.microsoft.com/en-gb/azure/databricks/release-notes/runtime/11.3
@@ -105,57 +119,75 @@ K8s MULTINODE
 -----------------------
 TERMINALS AVAILABLE
 -----------------------
-(1) TrainerMachine (192.168.0.106)
-(2) bfserv-216-48-178-59-e2e7-116760-ncr.cluster (216.48.178.59)
-(3) bfserv-216-48-179-71-e2e7-116761-ncr.cluster (216.48.179.71)
-(4) bfserv-216-48-181-140-e2e7-116762-ncr.cluster (216.48.181.140)
-(5) bfserv-216-48-182-69-e2e7-116763-ncr.cluster (216.48.182.69)
-(6) bfserv-216-48-182-77-e2e7-116764-ncr.cluster (216.48.182.77)
+(1) TrainerMachine (192.168.0.110)
+(2) sprk-164-52-223-87-e2ex-142945-ncr.cluster (164.52.223.87)
+(3) sprk-164-52-223-89-e2ex-142946-ncr.cluster (164.52.223.89)
+(4) sprk-164-52-223-91-e2ex-142947-ncr.cluster (164.52.223.91)
+(5) sprk-164-52-223-92-e2ex-142948-ncr.cluster (164.52.223.92)
+(6) sprk-164-52-223-95-e2ex-142949-ncr.cluster (164.52.223.95)
+(7) sprk-164-52-223-97-e2ex-142950-ncr.cluster (164.52.223.97)
+(8) sprk-164-52-223-104-e2ex-142951-ncr.cluster (164.52.223.104)
 -----------------------
 
 -----------------------
 ACCESS INFO
 -----------------------
-FELLOWSHIP => bfserv
-yw3JVLBECf4eu1k => JpED1RT29bIbjLv
-E2E (matsya) => wizgoowL0ticpx9
+FELLOWSHIP => syn
+Crc7wOj5k4Kb9yA => bTCYt2mp13RV0YN
+E2E (matsya) => LOPtdKTUAaXveQf
 -----------------------
-* /opt/Matsya/matsya-mn-bfserv-terminal.pem
-* /opt/Matsya/matsya-mn-bfserv-terminal.ppk
+* /opt/Matsya/matsya-mn-syn-terminal.pem
+* /opt/Matsya/matsya-mn-syn-terminal.ppk
 -----------------------
-* PASSWORD LOGIN     => sshpass -p "JpED1RT29bIbjLv" ssh -p PORT -o "StrictHostKeyChecking=no" yw3JVLBECf4eu1k@TERMINAL
+* PASSWORD LOGIN     => sshpass -p "bTCYt2mp13RV0YN" ssh -p PORT -o "StrictHostKeyChecking=no" Crc7wOj5k4Kb9yA@TERMINAL
 -----
-* FILE PUSH          => /opt/Matsya/matsya-mn-bfserv-push.sh
+* FILE PUSH          => /opt/Matsya/matsya-mn-syn-push.sh
 -----
-* EXECUTE            => /opt/Matsya/matsya-mn-bfserv-exec.sh
+* EXECUTE            => /opt/Matsya/matsya-mn-syn-exec.sh
 -----
-* CONNECT TERMINAL   => /opt/Matsya/matsya-mn-bfserv-connect.sh
+* CONNECT TERMINAL   => /opt/Matsya/matsya-mn-syn-connect.sh
+			sshpass -p 'bTCYt2mp13RV0YN' ssh -o StrictHostKeyChecking=no Crc7wOj5k4Kb9yA@164.52.223.87			
+			sshpass -p 'GJACXP@fanyc853' ssh -o StrictHostKeyChecking=no root@164.52.200.64	
+			mysql -u mysqluser -pmysqluser123 -h 164.52.200.64		
 -----
-* ADD TERMINAL       => /opt/Matsya/matsya-mn-bfserv-add.sh
+* ADD TERMINAL       => /opt/Matsya/matsya-mn-syn-add.sh
 -----
-* REMOVE TERMINAL    => /opt/Matsya/matsya-mn-bfserv-remove.sh
+* REMOVE TERMINAL    => /opt/Matsya/matsya-mn-syn-remove.sh
 -----
-* SYNC TERMINAL      => /opt/Matsya/matsya-mn-bfserv-sync.sh
+* SYNC TERMINAL      => /opt/Matsya/matsya-mn-syn-sync.sh
 -----
-* DISBAND FELLOWSHIP => /opt/Matsya/matsya-mn-bfserv-kill.sh
+* DISBAND FELLOWSHIP => /opt/Matsya/matsya-mn-syn-kill.sh
 -----------------------
 
-Total Time Taken => 13 Minutes
+Total Time Taken => 03 Minutes
 
-sshpass -p 'JpED1RT29bIbjLv' ssh -o StrictHostKeyChecking=no yw3JVLBECf4eu1k@216.48.178.59
-sshpass -p '1SMnVw6plQi2VFU' ssh -o StrictHostKeyChecking=no mO9zv9KJL8ejheh@216.48.181.60
+==============================================================================
+sshpass -p 'uErVj8J5Q4NuV23' ssh -o StrictHostKeyChecking=no OIh2bWVajWUSaaq@91.203.133.152
+sshpass -p 'uErVj8J5Q4NuV23' ssh -o StrictHostKeyChecking=no OIh2bWVajWUSaaq@91.203.133.188
+sshpass -p 'uErVj8J5Q4NuV23' ssh -o StrictHostKeyChecking=no OIh2bWVajWUSaaq@91.203.133.191
+sshpass -p 'uErVj8J5Q4NuV23' ssh -o StrictHostKeyChecking=no OIh2bWVajWUSaaq@91.203.133.218
+sshpass -p 'uErVj8J5Q4NuV23' ssh -o StrictHostKeyChecking=no OIh2bWVajWUSaaq@91.203.133.225
+sshpass -p 'uErVj8J5Q4NuV23' ssh -o StrictHostKeyChecking=no OIh2bWVajWUSaaq@91.203.133.229
+mysql -u mysqluser -pmysqluser123 -h 91.203.133.229
+start "C:\Program Files\PuTTy" putty.exe -ssh -l OIh2bWVajWUSaaq -pw uErVj8J5Q4NuV23 91.203.133.152
+scp /home/prathamos/Downloads/Shakespeare.txt Crc7wOj5k4Kb9yA@164.52.223.97:/opt/Matsya/MN/syn/Crc7wOj5k4Kb9yA
 ==============================================================================
 http://training-216-48-181-56-e2e7-113488-ncr.cluster:5601 elastic 8d23XjnVlCEIcttEvsUT
-https://adb-8202987892709514.14.azuredatabricks.net/
-https://adb-8202987892709514.14.azuredatabricks.net/files
+https://https://adb-2328468119919942.2.azuredatabricks.net/
+https://https://adb-2328468119919942.2.azuredatabricks.net/files
 https://portal.azure.com/
+http://BajajFinservIgniteDE-91-203-133-229-e2e7-125572-ncr.cluster:7180
+http://master1:8080
+https://trino.io/docs/current/installation/containers.html http://91.203.133.188:8080 
+https://91.203.133.152:8443/nifi/ 7677b160-feea-453a-bfd5-c3f5f543e193 zDlP2NTihtcV3CsnHTWnb34S1TLz1g02
+http://91.203.133.225:7080/admin/
 ==============================================================================
-spark-submit --conf spark.history.fs.logDirectory=/tmp/spark-events --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=/tmp/spark-events --master spark://masternode:7077 --num-executors 3 --driver-memory 512m --executor-memory 512m --executor-cores 1 --total-executor-cores 4 movielens.py
+spark-submit --conf spark.history.fs.logDirectory=/tmp/spark-events --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=/tmp/spark-events --master spark://master1:7077 --num-executors 3 --driver-memory 512m --executor-memory 512m --executor-cores 1 --total-executor-cores 4 movielens.py
 
 spark-submit --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=/tmp/spark-events \
 --conf "spark.executor.extraJavaOptions=-Dlog4j.configuration=/opt/Matsya/MN/bfs-sprk/LGDf5HUVC4oNujB/log4j.properties" \
 --conf spark.history.fs.logDirectory=/tmp/spark-events --class "Retail.LearnSpark.Spark_Straggler" \
---master spark://masternode:7077 --num-executors 4 --driver-memory 512m \
+--master spark://master1:7077 --num-executors 4 --driver-memory 512m \
 --executor-memory 512m --executor-cores 1 --total-executor-cores 4 Spark_Straggler.jar \
 /opt/Matsya/MN/bfs-sprk/LGDf5HUVC4oNujB/log4j.properties /opt/DataSet/MakeMyTrip.csv 8 4 MMT_Analyze_Dev_Rotation_3
 
@@ -281,10 +313,55 @@ spark-submit --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=/tmp/s
 
 spark-submit --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=/tmp/spark-events --conf "spark.executor.extraJavaOptions=-Dlog4j.configuration=/opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/log4j.properties" --conf spark.driver.extraJavaOptions="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=7777" --conf spark.history.fs.logDirectory=/tmp/spark-events --class "Retail.LearnSpark.Spark_FilterEmps" --master spark://learnspark-216-48-183-151-e2e7-101132-ncr.cluster:7077 --num-executors 1 --driver-memory 512m --executor-memory 512m --executor-cores 1 --total-executor-cores 1 Spark_FilterEmps.jar /opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/log4j.properties /opt/DataSet/EmployeesAll.csv 1 1 /opt/Matsya/MN/learnspark/WHJGTTnVP9291fB/res5 Sprint75-Story76
 
+
+
 spark-submit --conf spark.eventLog.enabled=true --conf spark.eventLog.dir=/tmp/spark-events \
 --conf "spark.executor.extraJavaOptions=-Dlog4j.configuration=/opt/Matsya/MN/bfs-sprk/LGDf5HUVC4oNujB/log4j.properties" \
 --conf spark.history.fs.logDirectory=/tmp/spark-events --class "Retail.LearnSpark.Spark_FilterEmps" \
---master spark://masternode:7077 --num-executors 8 --driver-memory 512m \
+--master spark://master1:7077 --num-executors 8 --driver-memory 512m \
 --executor-memory 512m --executor-cores 1 --total-executor-cores 8 Spark_FilterEmps.jar \
 /opt/Matsya/MN/bfs-sprk/LGDf5HUVC4oNujB/log4j.properties /opt/DataSet/EmployeesAll.csv 8 1 \
 /opt/Matsya/MN/bfs-sprk/LGDf5HUVC4oNujB/res5 Sprint75-Story75
+
+SC
+
+http://bfsrv-164-52-216-47-e2ex-141354-ncr.cluster:60781/?token=19a0b7ff7a09ddc1c7e965afebcb78b1c3536eca1638a0da
+file:///9d10679033a07865687fc5047a1598aa/e3fcc0dc628759acef721446e92fd937/
+
+https://github.com/ajithshetty/spark-parallelism
+https://www.meesho.io/blog/tech-how-we-reduced-our-job-run-time-by-70-through-parallel-processing
+
+val myfile = sc.textFile("file:///9d10679033a07865687fc5047a1598aa/e3fcc0dc628759acef721446e92fd937/input")
+val counts = myfile.flatMap(line => line.split(" "))
+val counts2 = counts.map(word => (word, 1))
+val counts3 = counts2.reduceByKey(_ + _)
+val counts4 = counts3.coalesce(1)
+counts3.collect()
+
+SQ
+
+http://bfsrv-164-52-216-101-e2ex-141355-ncr.cluster:44540/?token=cf33cbfbb584bb8aae6037e89a7e6f52f4c14ac0b7436c64
+file:///9d10679033a07865687fc5047a1598aa/e3fcc0dc628759acef721446e92fd937/
+
+create table if not exists emps
+using csv 
+OPTIONS (header "true", delimiter ",", path "file:///9d10679033a07865687fc5047a1598aa/e3fcc0dc628759acef721446e92fd937/EmployeesAll.csv"); 
+select * from emps where gender = 'M' and first_name like '%Ara%' and last_name like '%Ba%';
+
+
+PY
+
+http://bfsrv-164-52-216-47-e2ex-141354-ncr.cluster:50463/?token=9e798004bd8c419781458d184907342275b965b97d61d00b
+file:///9d10679033a07865687fc5047a1598aa/e3fcc0dc628759acef721446e92fd937/
+
+data = [14, 22, 13, 64, 15, 81, 42, 73, 24, 55]
+sparkSample = sc.parallelize(data)
+filter = sparkSample.filter(lambda x: x < 50)
+filter.collect()
+
+
+
+
+
+
+

@@ -31,7 +31,7 @@ def CheckAndTake(line):
 def PrintPopularRoutesWindow(time, rdd):
     try:
         if rdd.isEmpty():
-            print ""
+            print ("")
         else:
             spark = getSparkSessionInstance(rdd.context.getConf())
         
@@ -42,13 +42,13 @@ def PrintPopularRoutesWindow(time, rdd):
         
             TopRoutes = spark.sql("select Route,sum(Revenue)as RevenueTotal from RouteAnalysis group by Route order by RevenueTotal desc limit 5")
         
-            print "=== MOST POPULAR ROUTES === [ " + str(time) + " ] === [ Window Length : " + sys.argv[5] + " Seconds / Slide Interval : " + sys.argv[6] + " Seconds ] ==="
+            print ("=== MOST POPULAR ROUTES === [ " + str(time) + " ] === [ Window Length : " + sys.argv[5] + " Seconds / Slide Interval : " + sys.argv[6] + " Seconds ] ===")
             TopRoutes.select("Route", "RevenueTotal").show(truncate=False)        
     except Exception as e: print(e)    
 
 def getDrivers(spark):
     if ('DriversMaster' not in globals()):        
-        DF_MySql=spark.read.format("jdbc").option("url", "jdbc:mysql://216.48.181.38/retail_db").option("driver", "com.mysql.jdbc.Driver").option("dbtable", "Drivers").option("user", "mysqluser").option("password", "mysqluser123").load()
+        DF_MySql=spark.read.format("jdbc").option("url", "jdbc:mysql://91.203.133.229/retail_db").option("driver", "com.mysql.jdbc.Driver").option("dbtable", "Drivers").option("user", "mysqluser").option("password", "mysqluser123").load()
         DF_MySql.persist( pyspark.StorageLevel.MEMORY_AND_DISK )
         globals()['DriversMaster'] = DF_MySql
     return globals()['DriversMaster']
@@ -56,7 +56,7 @@ def getDrivers(spark):
 def PrintDriverFinalDStream(time, rdd):
     try:
         if rdd.isEmpty():
-            print ""
+            print ("")
         else:
             spark = getSparkSessionInstance(rdd.context.getConf())
             
@@ -70,7 +70,7 @@ def PrintDriverFinalDStream(time, rdd):
                            
             DriverFinal = spark.sql("select * from DriverRevenue a inner join Drivers b on a.Driver = b.id order by a.Revenue desc limit 5")
         
-            print "=== Top Drivers === [ " + str(time) + " ] ==="
+            print ("=== Top Drivers === [ " + str(time) + " ] ===")
             DriverFinal.select("Driver", "first_name", "last_name", "email", "Revenue").show(truncate=False)
             #DriverFinal.coalesce(1).write.mode('append').csv("/user/bigdata/OlaAnalytics")        
     except Exception as e: print(e)
@@ -78,7 +78,7 @@ def PrintDriverFinalDStream(time, rdd):
 def PrintCabTypeDStream(time, rdd):
     try:
         if rdd.isEmpty():
-            print ""
+            print ("")
         else:
             spark = getSparkSessionInstance(rdd.context.getConf())
         
@@ -89,7 +89,7 @@ def PrintCabTypeDStream(time, rdd):
         
             CabTypeFinal = spark.sql("select * from Cabs order by Booked desc limit 10")
         
-            print "=== Booked Cabs === [ " + str(time) + " ] === [ Batch Size : " + sys.argv[3] + " Seconds ] ==="
+            print ("=== Booked Cabs === [ " + str(time) + " ] === [ Batch Size : " + sys.argv[3] + " Seconds ] ===")
             CabTypeFinal.select("CabType", "Booked").show(truncate=False)        
     except Exception as e: print(e)    
         
@@ -97,7 +97,7 @@ def updateFunc(new_values, last_sum):
     return sum(new_values) + (last_sum or 0)
     
 def CreateSSC(timeinterval,cp):
-    print "Creating SSC..."
+    print ("Creating SSC...")
     sparkConf = SparkConf().setAppName("OlaAnalytics")
     sc = SparkContext.getOrCreate(sparkConf)
     sc.setLogLevel("ERROR")

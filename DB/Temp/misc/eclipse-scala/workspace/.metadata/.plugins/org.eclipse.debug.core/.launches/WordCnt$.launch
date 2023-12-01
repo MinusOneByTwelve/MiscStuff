@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="scala.application">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/ScalaSpark/src/main/scala/Training/ScalaSpark/WordCnt.scala"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="Training.ScalaSpark.WordCnt"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="ScalaSpark"/>
+</launchConfiguration>

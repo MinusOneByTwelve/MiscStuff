@@ -1,0 +1,21 @@
+Signature-Version: 1.0
+SHA-256-Digest-Manifest-Main-Attributes: iZRF4WdgBR7kVwxfbORZb8EYlg0Ta
+ /QwjJA2QviiBqw=
+SHA-256-Digest-Manifest: IOkHNe92RTxyzyQi6zQU7SRSH3o3ojZXOw2x/tHtJLk=
+Created-By: 1.8.0_131 (Oracle Corporation)
+
+Name: about.html
+SHA-256-Digest: 1+7lEa6hEyYr202LuyM1v7TmPFtVOeR9BnmP3Fllc3I=
+
+Name: about_files/slf4j-simple-LICENSE.txt
+SHA-256-Digest: 6ider2669rCP3/7Zu6CakBEnZhnbMUcd8o3P26gpKs0=
+
+Name: simplelogger.properties
+SHA-256-Digest: ao8NrmY0dkFuOKzg+R3KlL+OR9OuK9WurDJfAwLsJT4=
+
+Name: jars/slf4j-simple-1.7.5.jar
+SHA-256-Digest: nYAiziXuWjWJE128JhKtdZN4jGJeUVqcLbkE2T3HUaM=
+
+Name: OSGI-INF/l10n/bundle.properties
+SHA-256-Digest: 6AfjoQa5rvsoO5WxhEvMVjLJuffxAGgE8SaMzQHOCD4=
+

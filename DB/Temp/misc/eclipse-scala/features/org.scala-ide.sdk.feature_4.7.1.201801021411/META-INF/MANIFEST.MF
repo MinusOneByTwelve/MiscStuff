@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Built-By: wpopielarski
+Created-By: Apache Maven 3.3.9
+Build-Jdk: 1.8.0_101
+
+Name: feature.xml
+SHA-256-Digest: 0ML5Yr5ciSLgE1MyKHeEXY876kgny4203zqhnLeuMv8=
+

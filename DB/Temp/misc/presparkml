@@ -1,0 +1,16 @@
+library load
+data load with pandas
+perprocessing
+handle missing values numeric imputer / 
+one hot encoding categorical / label encoding
+standardscalar
+eda
+split train/test 80:20 / 70:30
+fit
+gridsearch / crossfold
+xgboost
+accuracy check rmse mae r2 confusion matrix 
+
+
+
+

@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+repositories/http\:__download.eclipse.org_eclipse_updates_4.7/count=1
+repositories/http\:__download.eclipse.org_eclipse_updates_4.7/enabled=true
+repositories/http\:__download.eclipse.org_eclipse_updates_4.7/nickname=The Eclipse Project Updates
+repositories/http\:__download.eclipse.org_eclipse_updates_4.7/uri=http\://download.eclipse.org/eclipse/updates/4.7
+repositories/http\:__download.eclipse.org_releases_oxygen/count=1
+repositories/http\:__download.eclipse.org_releases_oxygen/enabled=true
+repositories/http\:__download.eclipse.org_releases_oxygen/nickname=Oxygen
+repositories/http\:__download.eclipse.org_releases_oxygen/uri=http\://download.eclipse.org/releases/oxygen
+repositories/http\:__download.scala-ide.org_sdk_lithium_e47_scala212_dev_site/count=1
+repositories/http\:__download.scala-ide.org_sdk_lithium_e47_scala212_dev_site/enabled=true
+repositories/http\:__download.scala-ide.org_sdk_lithium_e47_scala212_dev_site/nickname=Scala IDE
+repositories/http\:__download.scala-ide.org_sdk_lithium_e47_scala212_dev_site/uri=http\://download.scala-ide.org/sdk/lithium/e47/scala212/dev/site

@@ -1,0 +1,4 @@
+#Tue Jan 02 15:12:02 CET 2018
+-Xms=200m
+-XX\:MaxPermSize\==384m
+-Xmx=2G

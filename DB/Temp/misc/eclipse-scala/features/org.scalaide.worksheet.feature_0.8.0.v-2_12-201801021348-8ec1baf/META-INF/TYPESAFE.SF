@@ -1,0 +1,17 @@
+Signature-Version: 1.0
+SHA-256-Digest-Manifest-Main-Attributes: egJNLBJDPfJjInbB95o5psNYOCuLP
+ mGAZN7eEmaYus0=
+SHA-256-Digest-Manifest: RPMhSVxlhEzi1X9gsk7ViFAZV/CI5b8XatYf3/nPHqQ=
+Created-By: 1.8.0_101 (Oracle Corporation)
+
+Name: META-INF/maven/org.scalaide/org.scalaide.worksheet.feature/pom.p
+ roperties
+SHA-256-Digest: zih2Atlut2d/6Plqz1b29udtcV4HLDyJan8jx1zSRKE=
+
+Name: feature.xml
+SHA-256-Digest: NiU14036G43doZ3MJAAT2J915pM8XSvl/tRchOaFm7o=
+
+Name: META-INF/maven/org.scalaide/org.scalaide.worksheet.feature/pom.x
+ ml
+SHA-256-Digest: +Oa6lCEwmISpYcNkqLeN5AtqBggRmw58pazoXRoQTxk=
+
