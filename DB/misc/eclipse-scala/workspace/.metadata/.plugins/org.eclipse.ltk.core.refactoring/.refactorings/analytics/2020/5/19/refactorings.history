@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;analytics/src/main/scala/cts/analytics/Learn/WordCount.scala&apos; to &apos;WordCountCnt.scala&apos;" description="Rename resource &apos;WordCount.scala&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/scala/cts/analytics/Learn/WordCount.scala" name="WordCountCnt.scala" stamp="1588658162948" updateReferences="true"/>
-</session>
