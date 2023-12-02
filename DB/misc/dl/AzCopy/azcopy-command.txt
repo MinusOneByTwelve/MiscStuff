@@ -1,0 +1,5 @@
+set ACCOUNT_NAME=gen2storage1088
+
+set ACCOUNT_KEY=iOY7UfkiPVv5lXvfkdk/K48wS38wxVkHHFp0ltiA0lEnkBMRPMJLUU6NxSFq6giyRBmgC69usZjXSoFIxyACew==
+
+azcopy.exe cp "C:\OnlineCourses\DataLake\v2\DemoResources\SampleInputFiles\*" "https://gen2storage1088.dfs.core.windows.net/inputdata/ inputdataazcopy/" --recursive=true

@@ -1,0 +1,13 @@
+@postcoderows = EXTRACT Postcode string,
+PersonTotal int,
+DistrictName string
+FROM "/postcodes/InputData.csv"
+USING Extractors.Csv(skipFirstNRows:1);
+
+@sumresults = SELECT Postcode.Substring(0, 4) AS PostcodeArea, SUM(PersonTotal) AS NoPersons
+FROM @postcoderows
+GROUP BY Postcode.Substring(0, 4);
+
+OUTPUT @sumresults TO "/output/PCAreaTotals.csv"
+ORDER BY PostcodeArea ASC
+USING Outputters.Csv(outputHeader:true);
