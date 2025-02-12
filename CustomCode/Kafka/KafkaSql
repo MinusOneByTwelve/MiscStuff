@@ -1,0 +1,199 @@
+/work/kafka/confluent-7.4.0/bin/ksql http://216.48.183.202:3800
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.184.61:3400,216.48.183.236:3400,216.48.183.235:3400,216.48.183.229:3400 --create --partitions 1 --replication-factor 1 --topic USERS
+
+/work/kafka/confluent-7.4.0/bin/kafka-console-producer --broker-list 216.48.184.61:3400,216.48.183.236:3400,216.48.183.235:3400,216.48.183.229:3400 --topic USERS << EOF 
+Alice,US
+Bob,GB
+Carol,AU 
+Dan,US
+EOF
+
+==================
+
+LIST PROPERTIES;
+ksql.extension.dir
+list functions
+show topics;
+print 'USERS';
+print 'USERS' from beginning;
+print 'USERS' from beginning limit 2;
+print 'USERS' from beginning interval 2 limit 2 ;
+
+==================
+
+create stream users_stream (name VARCHAR, countrycode VARCHAR) WITH (KAFKA_TOPIC='USERS', VALUE_FORMAT='DELIMITED');
+
+list streams;
+
+SET 'auto.offset.reset'='earliest';
+select name,countrycode from users_stream emit changes;
+select name,countrycode from users_stream emit changes limit 2;
+select countrycode,count(*)total from users_stream group by countrycode emit changes; 
+drop stream if exists users_stream; 
+
+==================
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.184.61:3400,216.48.183.236:3400,216.48.183.235:3400,216.48.183.229:3400 --create --partitions 1 --replication-factor 1 --topic USERPROFILE
+
+/work/kafka/confluent-7.4.0/bin/kafka-console-producer --broker-list 216.48.184.61:3400,216.48.183.236:3400,216.48.183.235:3400,216.48.183.229:3400 --topic USERPROFILE << EOF
+{"userid": 1000, "firstname":"Alison", "lastname":"Smith", "countrycode":"GB", "rating":4.7}
+{"userid": 1001, "firstname":"Bob", "lastname":"Smith", "countrycode":"US", "rating":4.2}
+EOF
+
+CREATE STREAM userprofile (userid INT, firstname VARCHAR, lastname VARCHAR, countrycode VARCHAR, rating DOUBLE) WITH (VALUE_FORMAT = 'JSON', KAFKA_TOPIC = 'USERPROFILE');
+
+select * from userprofile emit changes; 
+select rowtime,firstname, lastname, countrycode, rating from userprofile emit changes; 
+
+/work/kafka/confluent-7.4.0/bin/ksql-datagen schema=qw.avro format=json topic=USERPROFILE key=userid msgRate=1 iterations=100 bootstrap-server=216.48.184.61:3400,216.48.183.236:3400,216.48.183.235:3400,216.48.183.229:3400
+
+print 'USERPROFILE' interval 5;
+
+describe userprofile;
+describe extended userprofile;
+
+select	TIMESTAMPTOSTRING(rowtime, 'dd/MMM HH:mm') as createtime, firstname + ' ' + ucase(lastname)	as full_name from userprofile emit changes;
+select firstname + ' ' + ucase( lastname) + ' from ' + countrycode + ' has a rating of ' + cast(rating as varchar) + ' stars. ' + case when rating < 2.5 then 'Poor' when rating between 2.5 and 4.2 then 'Good' else 'Excellent' end as description from userprofile emit changes;
+
+run script 'user_profile_pretty.ksql'; 
+list streams;
+describe extended user_profile_pretty;
+
+select description from user_profile_pretty emit changes; 
+drop stream user_profile_pretty;
+
+terminate CSAS_USER_PROFILE_PRETTY_0; 
+drop stream user_profile_pretty;
+
+list streams;
+
+==================
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.184.61:3400,216.48.183.236:3400,216.48.183.235:3400,216.48.183.229:3400 --create --partitions 1 --replication-factor 1 --topic COUNTRY-CSV
+
+/work/kafka/confluent-7.4.0/bin/kafka-console-producer --broker-list 216.48.184.61:3400,216.48.183.236:3400,216.48.183.235:3400,216.48.183.229:3400 --topic COUNTRY-CSV --property "parse.key=true" --property "key.separator=:" << EOF
+AU:Australia 
+IN:India
+GB:UK
+US:United States 
+EOF
+
+CREATE TABLE COUNTRYTABLE (countrycode VARCHAR PRIMARY KEY, countryname VARCHAR) WITH (KAFKA_TOPIC='COUNTRY-CSV', VALUE_FORMAT='DELIMITED');
+
+show tables;
+describe COUNTRYTABLE;
+describe extended COUNTRYTABLE;
+SET 'auto.offset.reset'='earliest';
+select countrycode, countryname from countrytable emit changes;
+select countrycode, countryname from countrytable where countrycode='GB' emit changes limit 1;
+select countrycode, countryname from countrytable where countrycode='FR' emit changes;
+insert into countrytable values('GB','United Kingdom');
+insert into countrytable values('FR','France');
+select countrycode, countryname from countrytable emit changes;
+
+==================
+
+select up.firstname, up.lastname, up.countrycode, ct.countryname from USERPROFILE up left join COUNTRYTABLE ct on ct.countrycode=up.countrycode emit changes;
+
+create stream up_joined as select up.firstname + ' ' + ucase(up.lastname)+ ' from ' + ct.countryname+ ' has a rating of ' + cast(rating as varchar) + ' stars.' as description, up.countrycode from USERPROFILE up left join COUNTRYTABLE ct on ct.countrycode=up.countrycode; 
+select description from up_joined emit changes;
+
+select description from up_joined emit changes;
+
+==================
+
+PULL
+
+SET 'auto.offset.reset'='earliest';
+CREATE STREAM driverLocations (driverId VARCHAR KEY, countrycode VARCHAR, city VARCHAR, driverName VARCHAR)
+WITH (kafka_topic='driverlocations', value_format='json', partitions=1);
+
+INSERT INTO driverLocations (driverId, countrycode, city, driverName) VALUES ('1', 'AU', 'Sydney', 'Alice');
+INSERT INTO driverLocations (driverId, countrycode, city, driverName) VALUES ('2', 'AU', 'Melbourne', 'Bob');
+INSERT INTO driverLocations (driverId, countrycode, city, driverName) VALUES ('3', 'GB', 'London', 'Carole');
+INSERT INTO driverLocations (driverId, countrycode, city, driverName) VALUES ('4', 'US', 'New York', 'Derek');
+
+create table countryDrivers as select countrycode, count(*) as numDrivers from driverLocations group by countrycode;
+select * from driverLocations;
+select countrycode, numdrivers from countryDrivers where countrycode='AU';
+INSERT INTO driverLocations (driverId, countrycode, city, driverName) VALUES ('5', 'AU', 'Sydney', 'Emma');
+select countrycode, numdrivers from countryDrivers where countrycode='AU';
+
+==================
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --zookeeper 216.48.181.208:3100,216.48.181.15:3100,216.48.181.155:3100 --create --partitions 1 --replication-factor 1 --topic DATA_AVRO
+
+create stream dt_avro with (kafka_topic='DATA_AVRO', value_format='AVRO');
+describe extended dt_avro;
+
+==================
+
+NESTED
+
+{
+"city": {
+"name": "Sydney",
+"country": "AU",
+"latitude": -33.8688,
+"longitude": 151.2093
+},
+"description": "light rain", "clouds": 92,
+"deg": 26,
+"humidity": 94,
+"pressure": 1025.12,
+"rain": 1.25
+}
+{  "city": {    "name": "San Francisco",    "country": "US", "latitude":37.7749, "longitude":-122.4194 },  "description": "SUNNY",  "clouds": 92,  "deg": 19,  "humidity": 94,  "pressure": 1025.12,  "rain": 10  }
+{  "city": {    "name": "San Diego",    "country": "US", "latitude":32.7157, "longitude":-117.1611 },  "description": "SUNNY",  "clouds": 92,  "deg": 19,  "humidity": 94,  "pressure": 1025.12,  "rain": 2  }
+{  "city": {    "name": "Manchester",    "country": "GB", "latitude":53.4808, "longitude":-2.2426 },  "description": "SUNNY",  "clouds": 92,  "deg": 26,  "humidity": 94,  "pressure": 1025.12,  "rain": 3  }
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --zookeeper 216.48.181.208:3100,216.48.181.15:3100,216.48.181.155:3100 --create --partitions 1 --replication- factor 1 --topic WEATHERNESTED
+
+cat weather1.json | /work/kafka/confluent-7.4.0/bin/kafka-console-producer --broker-list 216.48.184.61:3400,216.48.183.236:3400,216.48.183.235:3400,216.48.183.229:3400 -- topic WEATHERNESTED
+
+SET 'auto.offset.reset'='earliest';
+CREATE STREAM weather (city STRUCT <name VARCHAR, country VARCHAR, latitude DOUBLE, longitude DOUBLE>,description VARCHAR, clouds BIGINT,deg BIGINT,humidity BIGINT, pressure DOUBLE, rain DOUBLE) WITH (KAFKA_TOPIC='WEATHERNESTED', VALUE_FORMAT='JSON');
+
+SELECT city->name AS city_name, city->country AS city_country, city->latitude as latitude, city->longitude as longitude, description, rain from weather emit changes;
+
+==================
+
+REKEY
+
+create stream weatherraw with (value_format='AVRO') as SELECT city->name AS city_name, city->country AS city_country, city->latitude as latitude, city->longitude as longitude, description, rain from weather ;
+
+list streams;
+
+describe extended weatherraw;
+
+create stream weatherrekeyed as select * from weatherraw partition by city_name; 
+describe extended weatherrekeyed;
+
+create table weathernow (city_name varchar primary key, city_country varchar, latitude double, longitude double, description varchar, rain double) with(kafka_topic='WEATHERREKEYED', value_format='AVRO');
+select * from weathernow emit changes;
+
+==================
+
+Repartition
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --zookeeper 216.48.181.208:3100,216.48.181.15:3100,216.48.181.155:3100 --create --partitions 2 --replication- factor 1 --topic DRIVER_PROFILE
+
+/work/kafka/confluent-7.4.0/bin/kafka-console-producer --broker-list 216.48.184.61:3400,216.48.183.236:3400,216.48.183.235:3400,216.48.183.229:3400 --topic DRIVER_PROFILE << EOF
+{"driver_name":"Mr. Speedy", "countrycode":"AU", "rating":2.4} 
+EOF
+
+CREATE STREAM DRIVER_PROFILE (driver_name VARCHAR, countrycode VARCHAR, rating DOUBLE) WITH (VALUE_FORMAT = 'JSON', KAFKA_TOPIC = 'DRIVER_PROFILE');
+
+select dp.driver_name, ct.countryname, dp.rating from DRIVER_PROFILE dp left join COUNTRYTABLE ct on ct.countrycode=dp.countrycode emit changes;
+
+create stream driverprofile_rekeyed with (partitions=1) as select * from DRIVER_PROFILE partition by driver_name;
+
+select dp2.driver_name, ct.countryname, dp2.rating from DRIVERPROFILE_REKEYED dp2 left join COUNTRYTABLE ct on ct.countrycode=dp2.countrycode emit changes;
+
+==================
+
+insert into stream select * from stream;
+select data_source, city_name, count(*) from rr_world window tumbling (size 60 seconds) group by data_source, city_name emit changes;
+
+==================

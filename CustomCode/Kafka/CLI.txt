@@ -1,0 +1,277 @@
+https://go2.confluent.io/Xrk04RH0t000X070o02xQ10
+https://go2.confluent.io/hk4wu7H00Q000orCt020XV0
+https://go2.confluent.io/trX42o0CQ00kU00tH7000wt
+https://docs.ksqldb.io/en/latest/
+https://kafka-tutorials.confluent.io/
+https://howtoprogram.xyz/2016/08/06/apache-flume-kafka-source-and-hdfs-sink/
+https://stackoverflow.com/questions/21020347/how-can-i-send-large-messages-with-kafka-over-15mb
+https://stackoverflow.com/questions/45529308/sending-synchronous-messages-in-kafka
+https://docs.confluent.io/platform/current/schema-registry/schema-validation.html
+https://docs.confluent.io/platform/current/streams/architecture.html
+https://docs.confluent.io/platform/current/kafka-rest/quickstart.html
+https://packages.confluent.io/archive/7.4/confluent-7.4.0.zip
+https://confluent-for-kubernetes.s3-us-west-1.amazonaws.com/confluent-for-kubernetes-2.0.0.tar.gz
+http://client.hub.confluent.io/confluent-hub-client-latest.tar.gz
+https://mirrors.estointernet.in/apache/avro/avro-1.11.1/java/
+https://www.confluent.io/stream-processing-cookbook/
+https://docs.ksqldb.io/en/latest/developer-guide/ksqldb-reference/scalar-functions/
+https://docs.confluent.io/current/ksql/docs/tutorials/generate-custom-test-data.html
+https://www.confluent.io/blog/kafka-connect-deep-dive-error-handling-dead-letter-queues/
+https://www.confluent.io/blog/5-things-every-kafka-developer-should-know
+https://dzone.com/articles/20-best-practices-for-working-with-apache-kafka-at  
+https://www.instaclustr.com/a-visual-understanding-to-ensuring-your-kafka-data-is-literally-in-order/
+http://cloudurable.com/blog/kafka-tutorial-kafka-producer-advanced-java-examples/index.html
+https://stackoverflow.com/questions/63447169/how-to-implement-at-most-once-delivery-consumer-semantic-using-spring-boot
+https://www.baeldung.com/kafka-exactly-once
+https://www.logicbig.com/tutorials/misc/kafka/consumer-rebalance-listener-example.html
+https://itnext.io/kafka-transaction-56f022af1b0c
+https://chrzaszcz.dev/2019/12/kafka-transactions/
+https://docs.confluent.io/current/schema-registry/schema-validation.html
+https://www.confluent.io/blog/multiple-event-types-in-the-same-kafka-topic/
+https://karengryg.io/2018/08/18/multi-schemas-in-one-kafka-topic/
+https://docs.confluent.io/platform/6.1.1/kafka/sbc/sbc-tutorial.html#c3-cprest-config-tutorial
+https://docs.confluent.io/platform/current/multi-dc-deployments/replicator/replicator-quickstart.html#replicator-quickstart
+https://stackoverflow.com/questions/62811855/java-producer-consumer-kafka-client-properties-required-when-accessing-a-ssl-aut
+https://shalishvj.wordpress.com/2016/11/07/kafka-producers-and-consumers-console-java-using-sasl_ssl/
+https://stackoverflow.com/questions/46546174/kafka-consumer-commitsync-vs-commitasync/48264461
+https://stackoverflow.com/questions/39730126/difference-between-session-timeout-ms-and-max-poll-interval-ms-for-kafka-0-10
+https://kafka.apache.org/090/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html
+https://stackoverflow.com/questions/49525141/how-many-kafka-controllers-are-there-in-a-cluster-and-what-is-the-purpose-of-a-c
+https://medium.com/@_amanarora/replication-in-kafka-58b39e91b64e
+https://medium.com/lydtech-consulting/kafka-unclean-leader-election-13ac8018f176
+https://logz.io/blog/kafka-logging/
+https://www.conduktor.io/
+https://github.com/nayekabhishek1/awesome-kafka
+https://chkrishna.medium.com/kafka-confluent-certified-administrator-ccoak-preparation-f8be953c90d1
+https://www.exitcertified.com/it-training/kafka-by-confluent/apache-kafka-administration-training%20/apache-kafka-admin-confluent-58682-detail.html
+https://github.com/confluentinc
+https://bit.ly/contactrkk-training
+https://www.confluent.io/blog/build-cross-platform-kafka-applications-using-c-and-dotnet-5/
+https://www.c-sharpcorner.com/article/building-real-time-applications-using-net-core-and-kafka/
+https://developer.confluent.io/get-started/dotnet/#produce-events
+https://docs.cloudera.com/cdp-private-cloud-base/7.1.6/kafka-developing-applications/topics/kafka-develop-dotnet-performant-producer.html
+https://github.com/confluentinc/confluent-kafka-dotnet/issues
+https://github.com/LGouellec/kafka-streams-dotnet
+# ===============================================================================================
+# Component			Port			Original Port
+# ===============================================================================================
+# ZooKeeper			3100,3200,3300		2181,2888,3888
+# Kafka brokers (plain text)	3400			9092
+# Schema Registry REST API	3500			8081
+# Kafka Connect REST API	3600			8083
+# REST Proxy			3700			8082
+# KSQL Server REST API		3800			8088
+# Metadata Service (MDS)	3900			8090
+# Confluent Control Center	4000			9021
+# ZooNavigator			4100,4200
+# Kafka-Manager (CMAK)		4210
+# Kafka-Monitor			8778
+# Kafka JMX Exporter		4215			8080
+# 				4220			8080
+# Prometheus			4230			9090
+# Grafana			4240			3000
+# ===============================================================================================
+zookeeper-server-start C:\Work\confluent-7.4.0\etc\kafka\zookeeper.properties
+
+kafka-server-start C:\Work\confluent-7.4.0\etc\kafka\server1.properties
+kafka-server-start C:\Work\confluent-7.4.0\etc\kafka\server2.properties
+kafka-server-start C:\Work\confluent-7.4.0\etc\kafka\server3.properties
+
+zookeeper-server-start C:\Work\kafka_2.13-2.8.0\config\zookeeper.properties
+
+kafka-server-start C:\Work\kafka_2.13-2.8.0\config\server1.properties
+kafka-server-start C:\Work\kafka_2.13-2.8.0\config\server2.properties
+kafka-server-start C:\Work\kafka_2.13-2.8.0\config\server3.properties
+
+connect-distributed C:\Work\kafka_2.13-2.8.0\config\connect-distributed.properties
+# ===============================================================================================
+kafka-topics --zookeeper 192.168.1.4:2181 --list
+
+kafka-topics --zookeeper 192.168.1.4:2181 --topic topicdm --create --partitions 3 --replication-factor 3
+kafka-topics --zookeeper 192.168.1.4:2181 --topic topic2 --create --partitions 3 --replication-factor 3 --config min.insync.replicas=2
+kafka-topics --zookeeper 192.168.1.4:2181 --topic topic2 --delete
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic iotcapture --create --partitions 1 --replication-factor 1
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic iotalarm --create --partitions 1 --replication-factor 1
+/work/kafka/confluent-7.4.0/bin/kafka-console-producer --broker-list 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic iotcapture
+/work/kafka/confluent-7.4.0/bin/kafka-console-consumer --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic iotalarm --from-beginning
+
+kafka-topics --zookeeper 192.168.1.4:2181 --alter --topic topic2 --partitions 4
+
+kafka-topics --zookeeper 192.168.1.4:2181 --topic topicdm --describe
+
+kafka-replica-verification --broker-list 192.168.1.4:9092,192.168.1.4:9093,192.168.1.4:9094
+
+kafka-console-producer --broker-list 192.168.1.4:9092,192.168.1.4:9093,192.168.1.4:9094 --topic topicdm
+
+kafka-console-consumer --bootstrap-server 192.168.1.4:9092,192.168.1.4:9093,192.168.1.4:9094 --topic topicdm
+
+kafka-console-consumer --bootstrap-server 192.168.1.4:9092,192.168.1.4:9093,192.168.1.4:9094 --topic topicdm --group grp1
+
+kafka-consumer-groups --bootstrap-server 192.168.1.4:9092,192.168.1.4:9093,192.168.1.4:9094 --list
+
+kafka-consumer-groups --bootstrap-server 192.168.1.4:9092,192.168.1.4:9093,192.168.1.4:9094 --describe --group grp1
+
+kafka-consumer-groups --bootstrap-server 192.168.1.4:9092,192.168.1.4:9093,192.168.1.4:9094 --group grp1 --reset-offsets --to-earliest --execute --topic topicdm
+
+kafka-console-consumer --bootstrap-server 192.168.1.4:9092,192.168.1.4:9093,192.168.1.4:9094 --topic topicdm --formatter kafka.tools.DefaultMessageFormatter --property print.key=true --property print.value=true --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.StringDeserializer --from-beginning
+
+kafka-console-producer --bootstrap-server 192.168.1.4:9092,192.168.1.4:9093,192.168.1.4:9094 --topic topicdm --property parse.key=true --property key.separator=,
+kafka-console-consumer --bootstrap-server 192.168.1.4:9092,192.168.1.4:9093,192.168.1.4:9094 --topic topicdm --from-beginning --property print.key=true --property key.separator=,
+
+==========================================================================================
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --zookeeper 216.48.178.122:3100,216.48.181.203:3100,216.48.182.10:3100 --topic votechoice --create --partitions 1 --replication-factor 1 --config cleanup.policy=compact --config segment.ms=5000 --config min.cleanable.dirty.ratio=0.001
+kafka-topics --zookeeper 216.48.178.122:3100,216.48.181.203:3100,216.48.182.10:3100 --topic votechoice --describe
+/work/kafka/confluent-7.4.0/bin/kafka-console-producer --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic votechoice --property parse.key=true --property key.separator=,
+/work/kafka/confluent-7.4.0/bin/kafka-console-consumer --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic votechoice --from-beginning --property print.key=true --property key.separator=,
+
+==========================================================================================
+
+http://216.48.183.236:4000
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --zookeeper 216.48.178.122:3100,216.48.181.203:3100,216.48.182.10:3100 --topic topicdm --delete
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic Customer --delete
+/work/kafka/confluent-7.4.0/bin/kafka-topics --zookeeper 216.48.178.122:3100,216.48.181.203:3100,216.48.182.10:3100 --list
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic topicdm --create --partitions 3 --replication-factor 3
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic topicdm --describe
+
+/work/kafka/confluent-7.4.0/bin/kafka-console-producer --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic topicdm
+
+/work/kafka/confluent-7.4.0/bin/kafka-console-consumer --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic topicdm --from-beginning
+
+/work/kafka/confluent-7.4.0/bin/kafka-console-consumer --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic topicdm --group grp1
+
+/work/kafka/confluent-7.4.0/bin/kafka-consumer-groups --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --list
+
+/work/kafka/confluent-7.4.0/bin/kafka-consumer-groups --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --describe --group grp1
+
+/work/kafka/confluent-7.4.0/bin/kafka-consumer-groups --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --group grp1 --reset-offsets --to-earliest --execute --topic topicdm
+
+/work/kafka/confluent-7.4.0/bin/kafka-consumer-groups --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --group grp1 --reset-offsets --to-earliest --execute --topic topicdm
+
+/work/kafka/confluent-7.4.0/bin/kafka-console-consumer --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic TopicY --formatter kafka.tools.DefaultMessageFormatter --property print.key=true --property print.value=true --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer --from-beginning
+==========================================================================================
+
+java -jar /media/prathamos/Work/Work/Training/Kafka/avro-tools-1.11.1.jar compile schema /home/prathamos/Downloads/Kafka/schemas/*.avsc /home/prathamos/Downloads/Kafka/classes
+
+/work/kafka/confluent-7.4.0/bin/kafka-configs --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --alter --entity-type topics --entity-name Customer --add-config confluent.value.schema.validation=true
+
+==========================================================================================
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic testrestb --create --partitions 1 --replication-factor 1
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic testrestj --create --partitions 1 --replication-factor 1
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic testresta --create --partitions 1 --replication-factor 1
+
+==========================================================================================
+
+kafka-console-consumer --bootstrap-server 192.168.1.4:9092,192.168.1.4:9093,192.168.1.4:9094 --topic topic2 --formatter kafka.tools.DefaultMessageFormatter --property print.key=true --property print.value=true --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer --from-beginning
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic Elections --create --partitions 3 --replication-factor 3 --config min.insync.replicas=2
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic CurentlyLeading --create --partitions 3 --replication-factor 3 --config min.insync.replicas=2
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic AbkiBaar_Sarkar --create --partitions 3 --replication-factor 3 --config min.insync.replicas=2
+
+/work/kafka/confluent-7.4.0/bin/kafka-console-consumer --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic Elections --formatter kafka.tools.DefaultMessageFormatter --property print.key=true --property print.value=true --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.StringDeserializer --from-beginning
+
+/work/kafka/confluent-7.4.0/bin/kafka-console-consumer --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic CurentlyLeading --formatter kafka.tools.DefaultMessageFormatter --property print.key=true --property print.value=true --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.StringDeserializer --from-beginning
+
+/work/kafka/confluent-7.4.0/bin/kafka-console-consumer --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic AbkiBaar_Sarkar --formatter kafka.tools.DefaultMessageFormatter --property print.key=true --property print.value=true --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.IntegerDeserializer --from-beginning
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic ReqOTP --create --partitions 1 --replication-factor 3
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic RepOTP --create --partitions 1 --replication-factor 3
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic ResOTP --create --partitions 1 --replication-factor 3
+
+/work/kafka/confluent-7.4.0/bin/kafka-console-producer --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic ReqOTP --property parse.key=true --property key.separator=,
+/work/kafka/confluent-7.4.0/bin/kafka-console-producer --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic RepOTP --property parse.key=true --property key.separator=,
+/work/kafka/confluent-7.4.0/bin/kafka-console-consumer --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic ResOTP --from-beginning --property print.key=true --property key.separator=,
+
+==========================================================================================
+
+mkdir chub
+cd chub
+wget http://client.hub.confluent.io/confluent-hub-client-latest.tar.gz
+tar xf confluent-hub-client-latest.tar.gz
+cd ..
+chub/bin/confluent-hub
+mkdir -p /work/kafka/confluent-7.4.0/connectors
+chub/bin/confluent-hub install confluentinc/kafka-connect-jdbc:10.0.0 --component-dir /work/kafka/confluent-7.4.0/share/java --worker-configs /work/kafka/confluent-7.4.0/etc/schema-registry/connect-avro-distributed.properties
+chub/bin/confluent-hub install debezium/debezium-connector-mysql:1.2.2 --component-dir /work/kafka/confluent-7.4.0/share/java --worker-configs /work/kafka/confluent-7.4.0/etc/schema-registry/connect-avro-distributed.properties
+
+chub/bin/confluent-hub install mongodb/kafka-connect-mongodb:1.6.1 --component-dir /work/kafka/confluent-7.4.0/share/java --worker-configs /work/kafka/confluent-7.4.0/etc/schema-registry/connect-avro-distributed.properties
+
+-------------------------------------------------------------------------------------------
+MAKE SURE PROPER DRIVERS ARE AVAILABLE.IF NOT THEN COPY THEM & RESTART CONNECT
+-------------------------------------------------------------------------------------------
+
+mysql -u root -pda08d2789789556fdabb5 -h 216.48.184.61 -P 17011
+
+name = mysqletl
+connector.class = io.confluent.connect.jdbc.JdbcSourceConnector
+tasks.max = 1
+connection.url = jdbc:mysql://216.48.184.61:17011/sanatan
+connection.user = root
+connection.password = 0da2e52743989580577c7
+mode = bulk
+topic.prefix = mysqletl-
+
+chub/bin/confluent-hub install confluentinc/kafka-connect-hdfs3:latest --component-dir /work/kafka/confluent-7.4.0/share/java --worker-configs /work/kafka/confluent-7.4.0/etc/schema-registry/connect-avro-distributed.properties
+
+name = tohadoop
+connector.class = io.confluent.connect.hdfs3.Hdfs3SinkConnector
+topics = mysql-retaildb-customers
+hdfs.url = hdfs://91-203-133-229:8020
+hadoop.conf.dir = /user/OIh2bWVajWUSaaq/config
+hadoop.home = /user/OIh2bWVajWUSaaq
+logs.dir = /user/OIh2bWVajWUSaaq/logs
+hdfs.authentication.kerberos = false
+flush.size = 10
+topics.dir = /user/OIh2bWVajWUSaaq/topics
+hive.integration = false
+storage.class = io.confluent.connect.hdfs3.storage.HdfsStorage
+
+http://216.48.183.236:8083/connectors
+curl -X DELETE http://216.48.183.236:8083/connectors/RetailDB
+curl -d @"/work/kafka/file-source.json" -H "Content-Type: application/json" -X POST http://216.48.181.231:3600/connectors
+curl -d @"/work/kafka/file-sink.json" -H "Content-Type: application/json" -X POST http://216.48.181.231:3600/connectors
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --zookeeper 216.48.178.122:3100,216.48.181.203:3100,216.48.182.10:3100 --topic connect-filesyncup --create --partitions 1 --replication-factor 1
+
+==========================================================================================
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --zookeeper 216.48.178.122:3100,216.48.181.203:3100,216.48.182.10:3100 --topic ATM_Transactions --create --partitions 1 --replication-factor 3
+
+/work/kafka/confluent-7.4.0/bin/kafka-console-consumer --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic ATM_Transactions --from-beginning
+
+spark-submit --class "Training.Spark.SpeedLayer_BFSI" --jars spark-streaming-kafka-0-10_2.12-3.1.2.jar,kafka-clients-2.6.0.jar,spark-token-provider-kafka-0-10_2.12-3.1.2.jar --master local[*] SpeedLayer_BFSI.jar localhost 9998 10 30 10 1 ATM_Transactions 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 /tmp/BFSI
+
+==========================================================================================
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic TopicX --delete
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic Stream1-KSTREAM-AGGREGATE-STATE-STORE-0000000005-changelog --delete
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic Stream1-KSTREAM-AGGREGATE-STATE-STORE-0000000005-repartition --delete
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic TopicY --delete
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic TopicX --create --partitions 3 --replication-factor 3
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic TopicY --create --partitions 3 --replication-factor 3
+
+==========================================================================================
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic Payment --delete
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic RealPayment --delete
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic Elections --delete
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic CurentlyLeading --delete
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic AbkiBaar_Sarkar-KSTREAM-AGGREGATE-STATE-STORE-0000000007-changelog --delete
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic AbkiBaar_Sarkar-KSTREAM-AGGREGATE-STATE-STORE-0000000007-repartition --delete
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic AbkiBaar_Sarkar-CurentlyLeading-STATE-STORE-0000000005-changelog --delete
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic AbkiBaar_Sarkar-CurentlyLeading-STATE-STORE-0000000007-changelog --delete
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic AbkiBaar_Sarkar-KSTREAM-AGGREGATE-STATE-STORE-0000000010-changelog --delete
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic AbkiBaar_Sarkar --delete
+
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic Elections --create --partitions 3 --replication-factor 3
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic CurentlyLeading --create --partitions 3 --replication-factor 3
+/work/kafka/confluent-7.4.0/bin/kafka-topics --bootstrap-server 216.48.190.105:3400,216.48.190.50:3400,216.48.189.201:3400,216.48.185.199:3400 --topic AbkiBaar_Sarkar --create --partitions 3 --replication-factor 3
+
+==========================================================================================
