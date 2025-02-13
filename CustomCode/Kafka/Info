@@ -1,1 +1,26 @@
-Kafka
+sshpass -p 'PPPCCX@jwmrr779' ssh -o StrictHostKeyChecking=no root@91.203.135.66
+sshpass -p 'CPJXAF@sgbpz643' ssh -o StrictHostKeyChecking=no root@91.203.134.231
+sshpass -p 'WANWKW@qfnsf399' ssh -o StrictHostKeyChecking=no root@91.203.134.181
+sshpass -p 'NYFTBM@nhxxf967' ssh -o StrictHostKeyChecking=no root@91.203.133.221
+sshpass -p 'HMXEUM@hpwsp169' ssh -o StrictHostKeyChecking=no root@91.203.135.69
+
+http://91.203.135.69:4000
+https://drive.google.com/file/d/1QWKIzxTiZ0BR-Oq9GYy3M7Wg4Ei23GZ_/view?usp=drive_link
+
+http://91.203.135.66:4002/
+http://91.203.135.66:4001/
+
+mkdir -p /work/kafka/code/src/main/java/Training/Kafka/Core
+mv /work/kafka/code/Producer00.java /work/kafka/code/src/main/java/Training/Kafka/Core
+cd /work/kafka/code
+mvn clean install
+java -cp target/Kafka-1.0.jar Training.Kafka.Core.Producer00
+
+http://91.203.134.231:4002/
+http://91.203.134.231:4001/
+
+http://91.203.134.181:4002/
+http://91.203.134.181:4001/
+
+http://91.203.133.221:4002/
+http://91.203.133.221:4001/
